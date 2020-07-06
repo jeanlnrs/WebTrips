@@ -57,21 +57,26 @@ function clean() {
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col">
-            <button id="btnClean" onclick="clean()" class="btn text-white btn-warning">
-                Clean Shopping Cart
+            <button id="btnClean" onclick="clean()" class="btn text-white btn-danger">
+                LIMPIAR 
+                <i class="fas fa-trash"></i>
             </button>
         </th>
         <th scope="col">
             <form id="form1" action="/cart" method="POST" autocomplete="off">
                 <input type="hidden" name="total" value="${total}">
                 <input type="hidden" name="_id" value="">
-                <button id="submitbtn" class="btn btn-success">Buy</button>
+                <button id="submitbtn" class="btn btn-success">
+                PAGAR 
+                <i class="fas fa-dollar-sign"></i>
+                </button>
+
             </form>
         </th>
         </tr>
     `;
     products=JSON.parse(localStorage.getItem('cart'));
-    cart_n.innerHTML=`[${products.length}]`;
+    cart_n.innerHTML=`${products.length}`;
 })();
 var form= document.getElementById('form1');
 document.getElementById('submitbtn').addEventListener('click',()=>{
