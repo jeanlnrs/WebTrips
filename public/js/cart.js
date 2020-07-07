@@ -70,7 +70,6 @@ function clean() {
                 PAGAR 
                 <i class="fas fa-dollar-sign"></i>
                 </button>
-
             </form>
         </th>
         </tr>
