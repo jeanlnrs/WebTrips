@@ -12,7 +12,7 @@ function tableHTML(i) {
                 <th scope="row">${i+1} </th>
                 <th><img style="width:90px;" src="${products[i].url}"></th>
                 <td>${products[i].name}</td>
-                <td>1</td>
+                <td>${products[i].cant}</td>
                 <td>${products[i].price}</td>
             </tr>
     `;

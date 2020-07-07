@@ -130,12 +130,7 @@ function disque(req,res) {
               "currency": "USD",
               "quantity": 1
             }]
-          },
-          "amount": {
-            "currency": "USD",
-            "total": "25.00"
-          },
-          "description": "The best football team EVER!"
+          }
         }]
       };
       

@@ -8,21 +8,21 @@ var juiceDIV = document.getElementById("juiceDIV");
 var saladDIV = document.getElementById("saladDIV");
 //INFORMATION
 var FRUIT = [
-    { name: 'Bocas del toro', price: 300 },
-    { name: 'Esclusas de Miraflores', price: 75 },
-    { name: 'Casco Viejo', price: 40 },
-    { name: 'Portobelo', price: 50 },
-    { name: 'Panamá Vieja', price: 30 },
-    { name: 'Calzada de Amador', price: 30 }
+    { name: 'Bocas del toro', price: 300,img:'../img/fruits/fruit1.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Esclusas de Miraflores', price: 75,img:'../img/fruits/fruit2.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Casco Viejo', price: 40,img:'../img/fruits/fruit3.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Portobelo', price: 50,img:'../img/fruits/fruit4.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Panamá Vieja', price: 30,img:'../img/fruits/fruit5.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Calzada de Amador', price: 30,img:'../img/fruits/fruit6.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'}
 ];
 var JUICE = [
-    { name: 'Salar de Pedernales, Chile', price: 2500 },
-    { name: 'Cusi Cusi, Argentina', price: 3000 },
-    { name: 'Bosque Seco de Mangahurco, Ecuador', price: 1350 }];
+    { name: 'Salar de Pedernales, Chile', price: 2500,img:'../img/juice/juice1.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Cusi Cusi, Argentina', price: 3000,img:'../img/juice/juice2.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Bosque Seco de Mangahurco, Ecuador', price: 1350,img:'../img/juice/juice3.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'}];
 var SALAD = [
-    { name: 'Coliseo Romano, Roma', price: 5000 },
-    { name: 'La Torre Eiffel, Paris', price: 7500 },
-    { name: 'Basílica de Santa Sofía, Estambul', price: 5600 }
+    { name: 'Coliseo Romano, Roma', price: 5000,img:'../img/salads/salad1.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'La Torre Eiffel, Paris', price: 7500,img:'../img/salads/salad2.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},
+    { name: 'Basílica de Santa Sofía, Estambul', price: 5600,img:'../img/salads/salad3.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'}
 ];
 //HTML
 function HTMLfruitProduct(con) {
@@ -35,7 +35,7 @@ function HTMLfruitProduct(con) {
 
                 <!-- Card image -->
                 <div class="view overlay">
-                    <img class="card-img-top" style="height:16rem;" src="${URL}" alt="Card image cap">
+                    <img class="card-img-top" style="height:16rem;" src="${FRUIT[con - 1].img}" alt="Card image cap">
                 </div>
                 <!-- Card content -->
                 <div class="card-body">
@@ -45,9 +45,7 @@ function HTMLfruitProduct(con) {
                     <hr>
 
                     <!-- Text -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
-                        nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
-                        possimus, veniam magni quis!</p>
+                    <p class="card-text">${FRUIT[con - 1].description}</p>
                     <div class="d-flex justify-content-between align-items-center">
 
                         <!-- Link -->
@@ -75,7 +73,7 @@ function HTMLjuiceProduct(con) {
 
                 <!-- Card image -->
                 <div class="view overlay">
-                    <img class="card-img-top" style="height:16rem;" src="${URL}" alt="Card image cap">
+                    <img class="card-img-top" style="height:16rem;" src="${JUICE[con - 1].img}" alt="Card image cap">
                 </div>
                 <!-- Card content -->
                 <div class="card-body">
@@ -85,9 +83,7 @@ function HTMLjuiceProduct(con) {
                     <hr>
 
                     <!-- Text -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
-                        nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
-                        possimus, veniam magni quis!</p>
+                    <p class="card-text">${JUICE[con - 1].description}</p>
                     <div class="d-flex justify-content-between align-items-center">
 
                         <!-- Link -->
@@ -115,7 +111,7 @@ function HTMLsaladProduct(con) {
 
                 <!-- Card image -->
                 <div class="view overlay">
-                    <img class="card-img-top" style="height:16rem;" src="${URL}" alt="Card image cap">
+                    <img class="card-img-top" style="height:16rem;" src="${SALAD[con - 1].img}" alt="Card image cap">
                 </div>
                 <!-- Card content -->
                 <div class="card-body">
@@ -125,9 +121,7 @@ function HTMLsaladProduct(con) {
                     <hr>
 
                     <!-- Text -->
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
-                        nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
-                        possimus, veniam magni quis!</p>
+                    <p class="card-text">${SALAD[con - 1].description}</p>
                     <div class="d-flex justify-content-between align-items-center">
 
                         <!-- Link -->
@@ -163,7 +157,8 @@ function cart(name, price, url, con, btncart) {
     var item = {
         name: name,
         price: price,
-        url: url
+        url: url,
+        cant: "1"
     }
     cartItems.push(item);
     let storage = JSON.parse(localStorage.getItem("cart"));
@@ -184,7 +179,8 @@ function cart2(name, price, url, con, btncart) {
     var item = {
         name: name,
         price: price,
-        url: url
+        url: url,
+        cant: "1"
     }
     cartItems.push(item);
     let storage = JSON.parse(localStorage.getItem("cart"));
