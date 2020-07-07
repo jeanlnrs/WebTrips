@@ -126,15 +126,14 @@ function disque(req,res) {
           "item_list": {
             "items": [{
               "name": "Corinthians",
-              "sku": "001",
-              "price": "2",
+              "price": "25.00",
               "currency": "USD",
               "quantity": 1
             }]
           },
           "amount": {
             "currency": "USD",
-            "total": "2"
+            "total": "25.00"
           },
           "description": "The best football team EVER!"
         }]
