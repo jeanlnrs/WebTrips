@@ -116,30 +116,55 @@ function insertOrder(req,res) {
 }
 
 function insertPayment(req,res) {
-  var intent = "sale";
-  var payment_method = "paypal";
-  var return_url = "http://localhost:4000/success";
-  var cancel_url = "http://localhost:4000/";
   var name = "Corinthians";
   var currency = "USD";
   var description = "21 savage";
   var total = req.body.total;
   var cant = req.body.cant;
-  var order=new Order();
-  order.intent = intent;
-  order.payer.payment_method = payment_method;
-  order.redirect_urls.return_url = return_url;
-  order.redirect_urls.cancel_url = cancel_url;
-  var arrayItems = {name, total, currency, cant};
-  var arrayAmount = {currency, total};
-  order.transactions = [{items: [arrayItems], amount: arrayAmount, description}];
-  //order.transactions.item_list = [{items: [ name, total, currency, cant ]}];
-  //order.item_list = [name, total , currency, req.body.cant];
-  //order.transactions.amount = { currency, total};
-  //order.transactions.description = description;
+  //Json
+  const create_payment_json = {
+    intent: "sale",
+    payer: {
+      payment_method: "paypal"
+    },
+    redirect_urls: {
+      return_url: "http://localhost:4000/success",
+      cancel_url: "http://localhost:4000/"
+    },
+    transactions: [{
+      item_list: {
+        items: [{
+          name: name,
+          price: total,
+          currency: "USD",
+          quantity: cant
+        }]
+      },
+      amount: {
+        currency: "USD",
+        total: total
+      },
+      description: "The best football team EVER!"
+    }]
+  };
+  
+  var order = new Order();
+  var arrayItems = [{name: name, price: total, currency: currency, quantity: cant}];
+  var arrayAmount = {currency : currency, total: total};
+  order.transactions = [{item_list: {items : arrayItems}, amount: arrayAmount, description: description}];
   order.save((err,doc)=>{
       if (!err) {
-              console.log(order);
+        paypal.payment.create(create_payment_json, function (error, payment) {
+          if (error) {
+            throw error;
+          } else {
+            for (let i = 0; i < payment.links.length; i++) {
+              if (payment.links[i].rel === 'approval_url') {
+                res.redirect(payment.links[i].href);
+              }
+            }
+          }
+        });
       } else {
           console.log('Error insertOrder: '+err);
       }
@@ -148,28 +173,28 @@ function insertPayment(req,res) {
 
 function disque(req,res) {
     const create_payment_json = {
-        "intent": "sale",
-        "payer": {
-          "payment_method": "paypal"
+        intent: "sale",
+        payer: {
+          payment_method: "paypal"
         },
-        "redirect_urls": {
-          "return_url": "http://localhost:4000/success",
-          "cancel_url": "http://localhost:4000/"
+        redirect_urls: {
+          return_url: "http://localhost:4000/success",
+          cancel_url: "http://localhost:4000/"
         },
-        "transactions": [{
-          "item_list": {
-            "items": [{
-              "name": "Corinthians",
-              "price": "25",
-              "currency": "USD",
-              "quantity": 1
+        transactions: [{
+          item_list: {
+            items: [{
+              name: "Corinthians",
+              price: "25",
+              currency: "USD",
+              quantity: 1
             }]
           },
-          "amount": {
-            "currency": "USD",
-            "total": "25"
+          amount: {
+            currency: "USD",
+            total: "25"
           },
-          "description": "The best football team EVER!"
+          description: "The best football team EVER!"
         }]
       };
       

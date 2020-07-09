@@ -1,16 +1,6 @@
 const mongoose = require('mongoose');
 
 var orderSchema = new mongoose.Schema({
-    intent: String,
-    payer: 
-    { 
-        payment_method: String 
-    },
-    redirect_urls: 
-    { 
-        return_url:String, 
-        cancel_url:String 
-    },
     transactions: [ 
          { 
             item_list: 
@@ -22,7 +12,7 @@ var orderSchema = new mongoose.Schema({
                         price: String, 
                         currency: String, 
                         quantity: String 
-                    } 
+                    }
                 ]
             }, 
             amount: 
