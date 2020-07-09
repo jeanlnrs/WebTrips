@@ -12,6 +12,7 @@ paypal.configure({
   });
 
 var router= express.Router();
+var globalAmount
 mongoose.set('useFindAndModify',false);
 // Router
 router.get('/',(req,res)=>{
@@ -55,13 +56,12 @@ router.get('/order/delete/:id',(req,res)=>{
 router.get('/success', (req, res) => {
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
-  
     const execute_payment_json = {
       "payer_id": payerId,
       "transactions": [{
         "amount": {
           "currency": "USD",
-          "total": "25.00"
+          "total": globalAmount
         }
       }]
     };
@@ -78,8 +78,6 @@ router.get('/success', (req, res) => {
   });
 // POST
 router.post('/cart',(req,res)=>{
-    //insertOrder(req,res);
-    //disque(req,res);
     insertPayment(req,res);
 });
 router.post('/order',(req,res)=>{
@@ -121,54 +119,56 @@ function insertPayment(req,res) {
   var description = "21 savage";
   var total = req.body.total;
   var cant = req.body.cant;
-  //Json
-  const create_payment_json = {
-    intent: "sale",
-    payer: {
-      payment_method: "paypal"
-    },
-    redirect_urls: {
-      return_url: "http://localhost:4000/success",
-      cancel_url: "http://localhost:4000/"
-    },
-    transactions: [{
-      item_list: {
-        items: [{
-          name: name,
-          price: total,
-          currency: "USD",
-          quantity: cant
-        }]
-      },
-      amount: {
-        currency: "USD",
-        total: total
-      },
-      description: "The best football team EVER!"
-    }]
-  };
-  
   var order = new Order();
   var arrayItems = [{name: name, price: total, currency: currency, quantity: cant}];
   var arrayAmount = {currency : currency, total: total};
   order.transactions = [{item_list: {items : arrayItems}, amount: arrayAmount, description: description}];
+  globalAmount = total;
   order.save((err,doc)=>{
-      if (!err) {
-        paypal.payment.create(create_payment_json, function (error, payment) {
-          if (error) {
-            throw error;
-          } else {
-            for (let i = 0; i < payment.links.length; i++) {
-              if (payment.links[i].rel === 'approval_url') {
-                res.redirect(payment.links[i].href);
-              }
+    if (!err) {
+            
+      const create_payment_json = {
+        intent: "sale",
+        payer: {
+          payment_method: "paypal"
+        },
+        redirect_urls: {
+          return_url: "http://localhost:4000/success",
+          cancel_url: "http://localhost:4000/"
+        },
+        transactions: [{
+          item_list: {
+            items: [{
+              name: name,
+              price: total,
+              currency: currency,
+              quantity: 1
+            }]
+          },
+          amount: {
+            currency: currency,
+            total: total
+          },
+          description: description
+        }]
+      };
+
+      paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+          throw error;
+        } else {
+          for (let i = 0; i < payment.links.length; i++) {
+            if (payment.links[i].rel === 'approval_url') {
+              res.redirect(payment.links[i].href);
             }
           }
-        });
-      } else {
-          console.log('Error insertOrder: '+err);
-      }
-  });
+        }
+      });
+
+    } else {
+        console.log('Error insertOrder: '+err);
+    }
+});
 }
 
 function disque(req,res) {
@@ -197,7 +197,7 @@ function disque(req,res) {
           description: "The best football team EVER!"
         }]
       };
-      
+
       paypal.payment.create(create_payment_json, function (error, payment) {
         if (error) {
           throw error;
