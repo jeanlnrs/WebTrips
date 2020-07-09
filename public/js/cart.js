@@ -4,6 +4,7 @@ var cartItems=[];
 var cart_n = document.getElementById('cart_n');
 var table= document.getElementById('table');
 var total=0;
+var name;
 
 //HTML
 function tableHTML(i) {
@@ -13,7 +14,7 @@ function tableHTML(i) {
                 <th><img style="width:90px;" src="${products[i].url}"></th>
                 <td>${products[i].name}</td>
                 <td>${products[i].cant}</td>
-                <td>${products[i].price}</td>
+                <td>${products[i].price}.00</td>
             </tr>
     `;
 }
@@ -43,6 +44,7 @@ function clean() {
     for (let index = 0; index <products.length; index++) {
        table.innerHTML+=tableHTML(index);
        total=total+parseInt(products[index].price);
+       cant=parseInt(products[index].cant);
     }
     table.innerHTML+=`
         <tr>
@@ -65,6 +67,7 @@ function clean() {
         <th scope="col">
             <form id="form1" action="/cart" method="POST" autocomplete="off">
                 <input type="hidden" name="total" value="${total}">
+                <input type="hidden" name="cant" value="${cant}">
                 <input type="hidden" name="_id" value="">
                 <button id="submitbtn" class="btn btn-success">
                 PAGAR 

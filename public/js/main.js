@@ -158,7 +158,7 @@ function cart(name, price, url, con, btncart) {
         name: name,
         price: price,
         url: url,
-        cant: "1"
+        cant: 1
     }
     cartItems.push(item);
     let storage = JSON.parse(localStorage.getItem("cart"));
@@ -180,7 +180,7 @@ function cart2(name, price, url, con, btncart) {
         name: name,
         price: price,
         url: url,
-        cant: "1"
+        cant: 1
     }
     cartItems.push(item);
     let storage = JSON.parse(localStorage.getItem("cart"));

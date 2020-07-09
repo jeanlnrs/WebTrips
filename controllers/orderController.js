@@ -2,6 +2,7 @@
 const express= require('express');
 const mongoose= require('mongoose');
 const Order=  mongoose.model('Order');
+const Payment=  mongoose.model('Payment');
 const paypal = require('paypal-rest-sdk');
 
 paypal.configure({
@@ -78,7 +79,8 @@ router.get('/success', (req, res) => {
 // POST
 router.post('/cart',(req,res)=>{
     //insertOrder(req,res);
-    disque(req,res);
+    //disque(req,res);
+    insertPayment(req,res);
 });
 router.post('/order',(req,res)=>{
     updateOrder(req,res);
@@ -101,15 +103,47 @@ function insertOrder(req,res) {
     counter+=1;
     var order=new Order();
     order.total=req.body.total;
+    order.cant=req.body.cant;
     order.order=counter;
     order.save((err,doc)=>{
         if (!err) {
                 console.log('order: '+order);
-                res.redirect('/admin');
+                //res.redirect('/admin');
         } else {
             console.log('Error insertOrder: '+err);
         }
     });
+}
+
+function insertPayment(req,res) {
+  var intent = "sale";
+  var payment_method = "paypal";
+  var return_url = "http://localhost:4000/success";
+  var cancel_url = "http://localhost:4000/";
+  var name = "Corinthians";
+  var currency = "USD";
+  var description = "21 savage";
+  var total = req.body.total;
+  var cant = req.body.cant;
+  var order=new Order();
+  order.intent = intent;
+  order.payer.payment_method = payment_method;
+  order.redirect_urls.return_url = return_url;
+  order.redirect_urls.cancel_url = cancel_url;
+  var arrayItems = {name, total, currency, cant};
+  var arrayAmount = {currency, total};
+  order.transactions = [{items: [arrayItems], amount: arrayAmount, description}];
+  //order.transactions.item_list = [{items: [ name, total, currency, cant ]}];
+  //order.item_list = [name, total , currency, req.body.cant];
+  //order.transactions.amount = { currency, total};
+  //order.transactions.description = description;
+  order.save((err,doc)=>{
+      if (!err) {
+              console.log(order);
+      } else {
+          console.log('Error insertOrder: '+err);
+      }
+  });
 }
 
 function disque(req,res) {
@@ -126,11 +160,16 @@ function disque(req,res) {
           "item_list": {
             "items": [{
               "name": "Corinthians",
-              "price": "25.00",
+              "price": "25",
               "currency": "USD",
               "quantity": 1
             }]
-          }
+          },
+          "amount": {
+            "currency": "USD",
+            "total": "25"
+          },
+          "description": "The best football team EVER!"
         }]
       };
       
