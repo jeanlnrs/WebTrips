@@ -4,6 +4,7 @@ const path= require('path');
 const exphbs=require('express-handlebars');
 const bodyparser= require('body-parser');
 const orderController= require('./controllers/orderController');
+const dataController= require('./controllers/dataController');
 
 var app=express();
 app.use(bodyparser.urlencoded({
@@ -22,3 +23,4 @@ app.listen(4000,()=>{
     console.log('Server on port: 4000');
 });
 app.use('/',orderController);
+app.use('/',dataController);

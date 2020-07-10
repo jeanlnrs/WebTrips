@@ -1,8 +1,7 @@
 // Require
 const express= require('express');
 const mongoose= require('mongoose');
-const Order=  mongoose.model('Order');
-const Payment=  mongoose.model('Payment');
+const Order= mongoose.model('Order');
 const paypal = require('paypal-rest-sdk');
 
 paypal.configure({

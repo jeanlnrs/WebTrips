@@ -7,4 +7,4 @@ mongoose.connect('mongodb://localhost:27017/ecommerce',{useNewUrlParser:true},(e
     }
 });
 require('./order.model');
-require('./payment.model');
+require('./data.model');
