@@ -79,6 +79,7 @@ router.get('/success', (req, res) => {
 // POST
 router.post('/cart',(req,res)=>{
     insertPayment(req,res);
+    //disque(req,res);
 });
 router.post('/order',(req,res)=>{
     updateOrder(req,res);
