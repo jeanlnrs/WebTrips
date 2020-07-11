@@ -36,5 +36,15 @@ router.put('/adm/data-edit/:id',async (req,res)=>{
     await Data.findByIdAndUpdate(req.params.id, {name, description, price});
     res.redirect('/adm');
 });
-
+/* router.delete('/adm/delete/:id',(req,res)=>{
+    console.log(req.param.id);
+    res.send('Ofi');
+    const {name, description, price} = req.body;
+    await Data.findByIdAndDelete(req.params.id, {name, description, price});
+    res.redirect('/adm');
+}); */
+router.get('/adm/delete/:id',async (req,res)=>{
+    await Data.findByIdAndDelete(req.params.id);
+    res.redirect('/adm');
+});
 module.exports=router;
