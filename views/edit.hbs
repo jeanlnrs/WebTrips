@@ -27,50 +27,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 p-1 bg-white rounded shadow-sm mb-1">
-                    <form action="/adm/add" method="post">
+                    <form action="/adm/data-edit/{{data._id}}?_method=PUT" method="post">
+                    <input type="hidden" name="_method" value="PUT">
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
+                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre" value="{{data.name}}">
                         </div>
                         <div class="form-group">
                             <label>Descripcion</label>
-                            <textarea name="description"class="form-control" rows="3"></textarea>
+                            <textarea name="description"class="form-control" rows="3">{{data.description}}</textarea>
                         </div>
                         <div class="form-group">
                             <label>Precio</label>
-                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio">
+                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio" value="{{data.price}}">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Agregar</button>
+                        <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
                     </form>
-                </div>
-                <div class="col-lg-8 p-1 bg-white rounded shadow-sm mb-1">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each data}}
-                            <tr>
-                                <td>{{this.name}}</td>
-                                <td>{{this.description}}</td>
-                                <td>{{this.price}}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="/adm/edit/{{this._id}}">Actualizar</a>
-                                    <a class="btn btn-danger" href="/adm/delete/{{this._id}}">Eliminar</a>
-                                </td>
-                            </tr>
-                            {{else}}
-                            <tr>
-                                <td>No hay informacion en la tabla</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

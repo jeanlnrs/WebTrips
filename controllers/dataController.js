@@ -20,5 +20,21 @@ router.post('/adm/add', async (req,res)=>{
     await data.save();
     res.redirect('/adm');
 });
+router.get('/adm/edit/:id',async (req,res)=>{
+    Data.findById(req.params.id,(err,doc)=>{
+        if (!err) {
+                res.render("edit",{
+                    data:doc
+                });
+        } else {
+            console.log('Error findbyId: '+ err);  
+        }
+    });
+});
+router.put('/adm/data-edit/:id',async (req,res)=>{
+    const {name, description, price} = req.body;
+    await Data.findByIdAndUpdate(req.params.id, {name, description, price});
+    res.redirect('/adm');
+});
 
 module.exports=router;
