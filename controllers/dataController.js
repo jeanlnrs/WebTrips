@@ -16,7 +16,11 @@ router.get('/adm',(req,res)=>{
 });
 
 router.post('/adm/add', async (req,res)=>{
-    const data = new Data(req.body);
+    const data = new Data();
+    data.name = req.body.name;
+    data.price = req.body.price;
+    data.description = req.body.description;
+    data.path = '/img/uploads/' + req.file.filename;
     await data.save();
     res.redirect('/adm');
 });
@@ -32,17 +36,10 @@ router.get('/adm/edit/:id',async (req,res)=>{
     });
 });
 router.put('/adm/data-edit/:id',async (req,res)=>{
-    const {name, description, price} = req.body;
-    await Data.findByIdAndUpdate(req.params.id, {name, description, price});
+    const {name, description, price, filename} = req.body;
+    await Data.findByIdAndUpdate(req.params.id, {name, description, price, filename});
     res.redirect('/adm');
 });
-/* router.delete('/adm/delete/:id',(req,res)=>{
-    console.log(req.param.id);
-    res.send('Ofi');
-    const {name, description, price} = req.body;
-    await Data.findByIdAndDelete(req.params.id, {name, description, price});
-    res.redirect('/adm');
-}); */
 router.get('/adm/delete/:id',async (req,res)=>{
     await Data.findByIdAndDelete(req.params.id);
     res.redirect('/adm');

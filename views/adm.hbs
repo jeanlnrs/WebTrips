@@ -27,7 +27,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 p-1 bg-white rounded shadow-sm mb-1">
-                    <form action="/adm/add" method="post">
+                    <form action="/adm/add" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Nombre</label>
                             <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
@@ -40,6 +40,10 @@
                             <label>Precio</label>
                             <input type="text" name="price" class="form-control" placeholder="Ingrese precio">
                         </div>
+                        <div class="form-group input-group mb-3">
+                            <input type="file" name="path" class="custom-file-input">
+                            <label class="custom-file-label">Subir imagen</label>
+                        </div>
                         <button type="submit" class="btn btn-primary btn-block">Agregar</button>
                     </form>
                 </div>
@@ -47,6 +51,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col">Imagen</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Precio</th>
@@ -56,16 +61,14 @@
                         <tbody>
                             {{#each data}}
                             <tr>
+                                <td><img class="card-img-top" style="height:16rem;" src="{{this.path}}" alt="Card image cap"></td>
+                                <td>{{this.filename}}</td>
                                 <td>{{this.name}}</td>
                                 <td>{{this.description}}</td>
                                 <td>{{this.price}}</td>
                                 <td>
                                     <a class="btn btn-primary" href="/adm/edit/{{this._id}}">Actualizar</a>
                                     <a class="btn btn-danger" href="/adm/delete/{{this._id}}">Delete</a>
-                                    {{!-- <form action="/adm/delete/{{this._id}}?_method=DELETE" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form> --}}
                                 </td>
                             </tr>
                             {{else}}
