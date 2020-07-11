@@ -1,5 +1,7 @@
 // Require
 const express= require('express');
+const { unlink } = require('fs-extra');
+const path = require('path');
 const Data = require('../models/data.model');
 var router= express.Router();
 
@@ -36,12 +38,14 @@ router.get('/adm/edit/:id',async (req,res)=>{
     });
 });
 router.put('/adm/data-edit/:id',async (req,res)=>{
-    const {name, description, price, filename} = req.body;
-    await Data.findByIdAndUpdate(req.params.id, {name, description, price, filename});
+    const {name, description, price, path} = req.body;
+    await Data.findByIdAndUpdate(req.params.id, {name, description, price, path});
     res.redirect('/adm');
 });
 router.get('/adm/delete/:id',async (req,res)=>{
-    await Data.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+    const imageDeleted = await Data.findByIdAndDelete(id);
+    await unlink(path.resolve('./public' + imageDeleted.path));
     res.redirect('/adm');
 });
 module.exports=router;
