@@ -1,3 +1,4 @@
+
 // GLOBAL
 var products = [];
 var cartItems = [];
@@ -6,6 +7,7 @@ var cart_n = document.getElementById('cart_n');
 var fruitDIV = document.getElementById("fruitDIV");
 var juiceDIV = document.getElementById("juiceDIV");
 var saladDIV = document.getElementById("saladDIV");
+console.log(fruitDIV);
 //INFORMATION
 var FRUIT = [
     { name: 'Bocas del toro', price: 300,img:'../img/fruits/fruit1.jpeg',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'},

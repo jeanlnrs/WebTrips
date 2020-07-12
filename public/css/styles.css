@@ -131,8 +131,3 @@ section .section-title {
     height: 120px;
     border-radius: 50%;
 }
-
-.table-image {
-    td, th {
-      vertical-align: middle;
-    }
