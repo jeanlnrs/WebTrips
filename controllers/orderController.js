@@ -2,6 +2,7 @@
 const express= require('express');
 const mongoose= require('mongoose');
 const Order= mongoose.model('Order');
+const Data = require('../models/data.model');
 const paypal = require('paypal-rest-sdk');
 
 paypal.configure({
@@ -13,10 +14,19 @@ paypal.configure({
 var router= express.Router();
 var globalAmount
 mongoose.set('useFindAndModify',false);
-// Router
+
 router.get('/',(req,res)=>{
-    res.render('menu');
+  Data.find((err,docs)=>{
+      if (!err) {
+          res.render("index",{
+              data:docs
+          });
+      } else {
+           console.log('Error in Data: '+ err);    
+      }
+  });
 });
+
 router.get('/cart',(req,res)=>{
     res.render('cart');
 });
