@@ -24,9 +24,10 @@ router.post('/adm/add', async (req,res)=>{
     data.description = req.body.description;
     data.path = '/img/uploads/' + req.file.filename;
     await data.save();
+    req.flash("success_msg", "Destino agregado satisfactoriamente");
     res.redirect('/adm');
 });
-router.get('/adm/edit/:id',async (req,res)=>{
+/* router.get('/adm/edit/:id',async (req,res)=>{
     Data.findById(req.params.id,(err,doc)=>{
         if (!err) {
                 res.render("edit",{
@@ -41,7 +42,7 @@ router.put('/adm/data-edit/:id',async (req,res)=>{
     const {name, description, price, path} = req.body;
     await Data.findByIdAndUpdate(req.params.id, {name, description, price, path});
     res.redirect('/adm');
-});
+}); */
 router.get('/adm/delete/:id',async (req,res)=>{
     const { id } = req.params;
     const imageDeleted = await Data.findByIdAndDelete(id);

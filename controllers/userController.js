@@ -22,19 +22,19 @@ router.get('/users/signup',(req,res)=>{
 //POST
 router.post('/users/signin', passport.authenticate('local', {
     successRedirect: "/",
-        failureRedirect: "/users/signin"
+    failureRedirect: "/users/signin",
+    failureFlash: true
 }));
 
 router.post('/users/signup', async (req,res)=>{
     const { name, email, password, confirm_password } = req.body;
     const errors = [];
     if (password != confirm_password) {
-        errors.push({ text: "Passwords no coinciden" });
+        errors.push({ text: "Las contraseña no coinciden" });
       }
-      /* if (password.length < 4) {
-          console.log('Passwords must be at least 4 characters');
-        //errors.push({ text: "Passwords must be at least 4 characters." });
-      } */
+      if (password.length < 2) {
+        errors.push({ text: "La contraseña debe tener al menos 2 caracteres" });
+      }
       if (errors.length > 0) {
         res.render("users/signup", {
           errors,
@@ -49,14 +49,14 @@ router.post('/users/signup', async (req,res)=>{
         // Look for email coincidence
         const emailUser = await user.findOne({ email: email });
         if (emailUser) {
-          //req.flash("error_msg", "Este correo ya esta en uso");
+          req.flash("error_msg", "Este correo ya esta en uso");
           res.redirect("/users/signup");
         } else {
           // Saving a New User
           const newUser = new user({ name, email, password });
           newUser.password = await newUser.encryptPassword(password);
           await newUser.save();
-          //req.flash("success_msg", "Te haz registrado con exito.");
+          req.flash("success_msg", "Te haz registrado con exito.");
           res.redirect("/users/signin"); }
         }
     }

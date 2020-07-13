@@ -15,7 +15,12 @@
     <title>Route Pin</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
-    {{{body}}}
+  <header>
+    {{> navigation }}
+  </header>
+  {{> messages }}
+  {{> errors }}
+  {{{body}}}
 
     <!-- Footer -->
 <footer class="mt-auto">
