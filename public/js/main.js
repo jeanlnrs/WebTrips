@@ -35,10 +35,10 @@ function cart(name, price, url, con, btncart) {
     }
     products = JSON.parse(localStorage.getItem("cart"));
     cart_n.innerHTML = `${products.length}`;
-    document.getElementById(btncart).style.display = "none";
+    document.getElementById(name).style.display = "none";
     animation();
 }
-function cart2(name, price, url, con, btncart) {
+function cart2(name, price, url,) {
     var item = {
         name: name,
         price: price,
@@ -57,5 +57,5 @@ function cart2(name, price, url, con, btncart) {
     }
     products = JSON.parse(localStorage.getItem("cart"));
     cart_n.innerHTML = `${products.length}`;
-    document.getElementById(btncart).style.display = "none";
+    document.getElementById(name).style.display = "none";
 }

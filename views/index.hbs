@@ -1,42 +1,4 @@
- <header class="masthead">
-    {{!--<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Route Pin <i class="fas fa-route fa-lg"></i></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <div class="navbar-nav ml-auto">
-                    <form class="form-inline mt-2 mt-md-0">
-                        <a href="/adm" class="navbar-brand">
-                            <i class="far fa-user"></i> Administrator
-                        </a>
-                        <a href="/cart" class="navbar-brand">
-                            <i class="fas fa-shopping-bag fa-lg"></i>
-                            <i class="badge badge-pill badge-danger" id="cart_n"></i>
-                        </a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>--}}
-    </div>
-    </nav>
-    <div class="overlay"></div>
-    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-        <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
-    </video>
-    <div class="container h-100">
-        <div class="d-flex h-100 text-center align-items-center">
-            <div class="w-100 text-white">
-                <hr class="new">
-                <h5 class="display-4">"Viaja no para escapar de la vida sino para que la vida no se te escape."</h5>
-                <hr class="new">
-            </div>
-        </div>
-    </div>
-</header> 
+<br><br><br>
 <div class="container marketing">
     <br>
     <h2>Panama</h2>
@@ -63,11 +25,10 @@
                     <div class="d-flex justify-content-between align-items-center">
 
                         <!-- Link -->
-
                         <button type="button" onclick="cart2('{{this.name}}','{{this.price}}','{{this.path}}')"
                             class="btn btn-flat btn-lg"><a class="black-text d-flex justify-content-end"
                                 href="/cart"><b>${{this.price}}</b></a></button>
-                        <button id="${btn}" type="button"
+                        <button id="{{this.name}}" type="button"
                             onclick="cart('{{this.name}}','{{this.price}}','{{this.path}}')"
                             class="btn btn-flat btn-lg justify-content-end"><i
                                 class="fas fa-shopping-cart pl-1"></i></button>
@@ -78,3 +39,4 @@
         {{/each}}
     </div>
 </div>
+<script src="/js/main.js"></script>
