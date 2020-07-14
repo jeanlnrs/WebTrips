@@ -8,14 +8,26 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <div class="navbar-nav ml-auto">
         <form class="form-inline mt-2 mt-md-0">
+          {{#if user}}
+          <div class="dropdown">
+            <a href="/cart" class="navbar-brand">
+              <i class="fas fa-shopping-bag fa-lg"></i>
+              <i class="badge badge-pill badge-danger" id="cart_n"></i>
+            </a>
+            <button class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+              Cuenta
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/success">Ver mis tickets</a>
+              <a class="dropdown-item" href="/users/logout">Cerrar Session</a>
+            </div>
+          </div>
+          {{else}}
           <a href="/users/signin" class="navbar-brand">
             <i class="far fa-user"></i> Ingresar
           </a>
-          <a href="/cart" class="navbar-brand">
-            <i class="fas fa-shopping-bag fa-lg"></i>
-            <i class="badge badge-pill badge-danger" id="cart_n"></i>
-          </a>
         </form>
+        {{/if}}
       </div>
     </div>
   </div>

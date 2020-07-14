@@ -19,6 +19,10 @@ router.get('/users/signup',(req,res)=>{
     res.render('users/signup');
 });
 
+router.get('/users/logout',(req,res)=>{
+    req.logout();
+    res.redirect("/");
+});
 //POST
 router.post('/users/signin', passport.authenticate('local', {
     successRedirect: "/",

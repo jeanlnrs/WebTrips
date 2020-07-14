@@ -11,6 +11,14 @@ paypal.configure({
     'client_secret': 'EBe_1tSZYvwKwZBSgwkdNDsedg6BjIE5trrtqtZHqlJPsCoWac05feps9NeArEaP35j7vgr-l_VUS-0i'
   });
 
+  isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    req.flash('error_msg', 'Not Authorized.');
+    res.redirect('/users/signin');
+  };
+
 var router= express.Router();
 var globalAmount
 mongoose.set('useFindAndModify',false);
@@ -27,10 +35,10 @@ router.get('/',(req,res)=>{
   });
 });
 
-router.get('/cart',(req,res)=>{
+router.get('/cart', isAuthenticated, (req,res)=>{
     res.render('cart');
 });
-router.get('/orders',(req,res)=>{
+/* router.get('/orders',(req,res)=>{
     res.render('orders');
 });
 router.get('/admin',(req,res)=>{
@@ -61,9 +69,9 @@ router.get('/order/delete/:id',(req,res)=>{
             console.log('Error in delete: '+ err);  
         }
     });
-});
-router.get('/success', (req, res) => {
-    const payerId = req.query.PayerID;
+}); */
+router.get('/success', isAuthenticated, (req, res) => {
+    /* const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
     const execute_payment_json = {
       "payer_id": payerId,
@@ -80,22 +88,23 @@ router.get('/success', (req, res) => {
         console.log(error.response);
         throw error;
       } else {
-        console.log(JSON.stringify(payment));
+        console.log(JSON.stringify(payment)); */
         res.render('success');
-      }
-    });
+      /* }
+    }); */
   });
+
 // POST
-router.post('/cart',(req,res)=>{
+router.post('/cart', isAuthenticated, (req,res)=>{
     insertPayment(req,res);
     //disque(req,res);
 });
-router.post('/order',(req,res)=>{
+/* router.post('/order',(req,res)=>{
     updateOrder(req,res);
-});
+}); */
 
 // Functions
-function updateOrder(req,res) {
+/* function updateOrder(req,res) {
     Order.findOneAndUpdate({_id:req.body._id},req.body,{new:true},(err,doc)=>{
         if (!err) {
                 res.redirect('/admin');
@@ -103,7 +112,7 @@ function updateOrder(req,res) {
                 console.log('Update error '+err);
         }
     });
-}
+} 
 function insertOrder(req,res) {
     var d= new Date();
     var t=d.getTime();
@@ -121,7 +130,7 @@ function insertOrder(req,res) {
             console.log('Error insertOrder: '+err);
         }
     });
-}
+}*/
 
 function insertPayment(req,res) {
   var name = "Corinthians";
@@ -181,7 +190,7 @@ function insertPayment(req,res) {
 });
 }
 
-function disque(req,res) {
+/* function disque(req,res) {
     const create_payment_json = {
         intent: "sale",
         payer: {
@@ -219,7 +228,7 @@ function disque(req,res) {
           }
         }
       });
-}
+} */
 
 module.exports=router;
 
