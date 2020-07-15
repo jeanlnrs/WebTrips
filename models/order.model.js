@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 var orderSchema = new mongoose.Schema({
-    transactions: [ 
+    name: String,
+    description: String,
+    price:  String,
+    path: String
+    /* transactions: [ 
          { 
             item_list: 
             {
@@ -22,7 +26,7 @@ var orderSchema = new mongoose.Schema({
             }, 
             description: String 
         }
-    ] 
+    ] */ 
 });
 
 mongoose.model('Order',orderSchema);

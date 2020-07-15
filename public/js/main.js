@@ -16,12 +16,12 @@ function animation() {
     });
 }
 // CART FUNCTIONS
-function cart(name, price, url, con, btncart) {
+function cart(name, description, price, path, ) {
     var item = {
         name: name,
+        description : description,
         price: price,
-        url: url,
-        cant: 1
+        path: path
     }
     cartItems.push(item);
     let storage = JSON.parse(localStorage.getItem("cart"));
@@ -38,12 +38,12 @@ function cart(name, price, url, con, btncart) {
     document.getElementById(name).style.display = "none";
     animation();
 }
-function cart2(name, price, url,) {
+function cart2(name, description, price, path, ) {
     var item = {
         name: name,
+        description : description,
         price: price,
-        url: url,
-        cant: 1
+        path: path
     }
     cartItems.push(item);
     let storage = JSON.parse(localStorage.getItem("cart"));

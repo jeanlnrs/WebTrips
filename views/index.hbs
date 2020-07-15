@@ -21,15 +21,16 @@
                     <hr>
 
                     <!-- Text -->
-                    <p class="card-text" >{{this.description}}</p>
+                    <p class="card-text">{{this.description}}</p>
                     <div class="d-flex justify-content-between align-items-center">
 
                         <!-- Link -->
-                        <button type="button" onclick="cart2('{{this.name}}','{{this.price}}','{{this.path}}')"
+                        <button type="button"
+                            onclick="cart2('{{this.name}}','{{this.description}}','{{this.price}}','{{this.path}}')"
                             class="btn btn-flat btn-lg"><a class="black-text d-flex justify-content-end"
                                 href="/cart"><b>${{this.price}}</b></a></button>
                         <button id="{{this.name}}" type="button"
-                            onclick="cart('{{this.name}}','{{this.price}}','{{this.path}}')"
+                            onclick="cart('{{this.name}}','{{this.description}}','{{this.price}}','{{this.path}}')"
                             class="btn btn-flat btn-lg justify-content-end"><i
                                 class="fas fa-shopping-cart pl-1"></i></button>
                     </div>

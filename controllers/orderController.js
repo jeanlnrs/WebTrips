@@ -5,6 +5,7 @@ const Order= mongoose.model('Order');
 const Data = require('../models/data.model');
 const paypal = require('paypal-rest-sdk');
 
+//Config
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': 'AaSDE6qINg9wWMlZNBn1-2hl2ykTXot7weQxtMCUeBqNP_jYjp2kYwt64AeGiHrbh1U_sG57m2AzT87B',
@@ -15,7 +16,7 @@ paypal.configure({
     if (req.isAuthenticated()) {
       return next();
     }
-    req.flash('error_msg', 'Not Authorized.');
+    req.flash('error', 'Iniciar sesion para continuar');
     res.redirect('/users/signin');
   };
 
@@ -23,6 +24,8 @@ var router= express.Router();
 var globalAmount
 mongoose.set('useFindAndModify',false);
 
+
+//GET
 router.get('/',(req,res)=>{
   Data.find((err,docs)=>{
       if (!err) {
@@ -38,13 +41,14 @@ router.get('/',(req,res)=>{
 router.get('/cart', isAuthenticated, (req,res)=>{
     res.render('cart');
 });
-/* router.get('/orders',(req,res)=>{
+
+ router.get('/orders',(req,res)=>{
     res.render('orders');
 });
-router.get('/admin',(req,res)=>{
+router.get('/success',(req,res)=>{
     Order.find((err,docs)=>{
         if (!err) {
-            res.render("admin",{
+            res.render("success",{
                 order:docs
             });
         } else {
@@ -52,26 +56,8 @@ router.get('/admin',(req,res)=>{
         }
     });
 });
-router.get('/order/:id',(req,res)=>{
-    Order.findById(req.params.id,(err,doc)=>{
-        if (!err) {
-                res.render("orders",{order:doc});
-        } else {
-            console.log('Error findbyId: '+ err);  
-        }
-    });
-});
-router.get('/order/delete/:id',(req,res)=>{
-    Order.findByIdAndRemove(req.params.id,(err,doc)=>{
-        if (!err) {
-                res.redirect('/admin');
-        } else {
-            console.log('Error in delete: '+ err);  
-        }
-    });
-}); */
 router.get('/success', isAuthenticated, (req, res) => {
-    /* const payerId = req.query.PayerID;
+     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
     const execute_payment_json = {
       "payer_id": payerId,
@@ -88,49 +74,36 @@ router.get('/success', isAuthenticated, (req, res) => {
         console.log(error.response);
         throw error;
       } else {
-        console.log(JSON.stringify(payment)); */
-        res.render('success');
-      /* }
-    }); */
-  });
+        console.log(JSON.stringify(payment));
+        res.render('orders');
+       }
+    });
+  })
 
 // POST
-router.post('/cart', isAuthenticated, (req,res)=>{
-    insertPayment(req,res);
-    //disque(req,res);
+router.post('/addToCart', isAuthenticated, (req,res)=>{
+  insertToCart(req,res);
 });
-/* router.post('/order',(req,res)=>{
-    updateOrder(req,res);
-}); */
+
+router.post('/cart', isAuthenticated, (req,res)=>{
+  insertPayment(req,res);
+});
 
 // Functions
-/* function updateOrder(req,res) {
-    Order.findOneAndUpdate({_id:req.body._id},req.body,{new:true},(err,doc)=>{
-        if (!err) {
-                res.redirect('/admin');
-        } else {
-                console.log('Update error '+err);
-        }
-    });
-} 
-function insertOrder(req,res) {
-    var d= new Date();
-    var t=d.getTime();
-    var counter= t;
-    counter+=1;
-    var order=new Order();
-    order.total=req.body.total;
-    order.cant=req.body.cant;
-    order.order=counter;
-    order.save((err,doc)=>{
-        if (!err) {
-                console.log('order: '+order);
-                //res.redirect('/admin');
-        } else {
-            console.log('Error insertOrder: '+err);
-        }
-    });
-}*/
+function insertToCart(req,res) {
+  var order=new Order();
+  order.name = req.body.name;
+  order.description = req.body.description;
+  order.price = req.body.price;
+  order.path = req.body.path;
+  order.save((err,doc)=>{
+    if (!err) {
+            console.log('order: '+order);
+    } else {
+        console.log('Error insertOrder: '+err);
+    }
+});
+}
 
 function insertPayment(req,res) {
   var name = "Corinthians";
@@ -190,45 +163,4 @@ function insertPayment(req,res) {
 });
 }
 
-/* function disque(req,res) {
-    const create_payment_json = {
-        intent: "sale",
-        payer: {
-          payment_method: "paypal"
-        },
-        redirect_urls: {
-          return_url: "http://localhost:3000/success",
-          cancel_url: "http://localhost:3000/"
-        },
-        transactions: [{
-          item_list: {
-            items: [{
-              name: "Corinthians",
-              price: "25",
-              currency: "USD",
-              quantity: 1
-            }]
-          },
-          amount: {
-            currency: "USD",
-            total: "25"
-          },
-          description: "The best football team EVER!"
-        }]
-      };
-
-      paypal.payment.create(create_payment_json, function (error, payment) {
-        if (error) {
-          throw error;
-        } else {
-          for (let i = 0; i < payment.links.length; i++) {
-            if (payment.links[i].rel === 'approval_url') {
-              res.redirect(payment.links[i].href);
-            }
-          }
-        }
-      });
-} */
-
 module.exports=router;
-
