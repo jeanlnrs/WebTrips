@@ -46,7 +46,7 @@ router.get('/cart', isAuthenticated, (req,res)=>{
     res.render('orders');
 });
 router.get('/success',(req,res)=>{
-    Order.find((err,docs)=>{
+    Order.find({user: req.user.id},(err,docs)=>{
         if (!err) {
             res.render("success",{
                 order:docs
@@ -96,6 +96,7 @@ function insertToCart(req,res) {
   order.description = req.body.description;
   order.price = req.body.price;
   order.path = req.body.path;
+  order.user = req.user.id; //id
   order.save((err,doc)=>{
     if (!err) {
             console.log('order: '+order);

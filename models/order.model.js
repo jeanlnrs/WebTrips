@@ -4,7 +4,8 @@ var orderSchema = new mongoose.Schema({
     name: String,
     description: String,
     price:  String,
-    path: String
+    path: String,
+    user: String
     /* transactions: [ 
          { 
             item_list: 
