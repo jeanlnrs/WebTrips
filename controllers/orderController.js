@@ -107,19 +107,11 @@ function insertToCart(req,res) {
 }
 
 function insertPayment(req,res) {
-  var name = "Corinthians";
+  var name = "";
   var currency = "USD";
-  var description = "21 savage";
+  var description = "";
   var total = req.body.total;
-  var cant = req.body.cant;
-  var order = new Order();
-  var arrayItems = [{name: name, price: total, currency: currency, quantity: cant}];
-  var arrayAmount = {currency : currency, total: total};
-  order.transactions = [{item_list: {items : arrayItems}, amount: arrayAmount, description: description}];
-  globalAmount = total;
-  order.save((err,doc)=>{
-    if (!err) {
-            
+  var cant = 1;            
       const create_payment_json = {
         intent: "sale",
         payer: {
@@ -135,7 +127,7 @@ function insertPayment(req,res) {
               name: name,
               price: total,
               currency: currency,
-              quantity: 1
+              quantity: cant
             }]
           },
           amount: {
@@ -157,11 +149,6 @@ function insertPayment(req,res) {
           }
         }
       });
-
-    } else {
-        console.log('Error insertOrder: '+err);
-    }
-});
 }
 
 module.exports=router;

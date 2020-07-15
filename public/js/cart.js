@@ -9,22 +9,32 @@ var price=0;
 var name;
 
 //CLEAN
-/* function clean() {
+function clean() {
     localStorage.clear();
     for (let index = 0; index < products.length; index++) {
-        table.innerHTML+= tableHTML(index);
+        table.innerHTML+= `
+        <tr>
+            <th scope="row" class="border-0">
+                <div class="p-2">
+                    <img src="${products[index].path}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                    <div class="ml-3 d-inline-block align-middle">
+                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">${products[index].name}</a></h5>
+                    </div>
+                </div>
+            </th>
+                <td class="border-0 align-middle"><strong>$${products[index].price}.00</strong></td>
+        </tr>`
         price=price+parseInt(products[index].price);
     }
     price=0;
     table.innerHTML=`
         <tr>
             <th></th>
-            <th></th>
         </tr>
     `;
     cart_n.innerHTML='';
     document.getElementById("btnClean").style.display="none";
-} */
+} 
 
 (()=>{
     for (let index = 0; index <products.length; index++) {
@@ -57,6 +67,9 @@ var name;
                 <h5 class="font-weight-bold">$${total.toFixed(2)}</h5>
               </li>
             </ul>
+            <button id="btnClean" onclick="clean()" class="btn text-white btn-warning">
+                Clean Shopping Cart
+            </button>
             <form id="form1" action="/cart" method="POST" autocomplete="off">
                 <input type="hidden" name="total" value="${total.toFixed(2)}">
                 <button id="submitbtn" class="btn btn-dark rounded-pill py-2 btn-block">Proceder pago</button>
