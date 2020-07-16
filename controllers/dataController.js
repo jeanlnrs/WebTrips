@@ -26,6 +26,7 @@ router.post('/adm/add', async (req,res)=>{
     await data.save();
     req.flash("success_msg", "Destino agregado satisfactoriamente");
     res.redirect('/adm');
+    console.log('data: '+ data);
 });
 /* router.get('/adm/edit/:id',async (req,res)=>{
     Data.findById(req.params.id,(err,doc)=>{
