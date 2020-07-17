@@ -1,7 +1,6 @@
 //GLOBAL
 var products= JSON.parse(localStorage.getItem('cart'));
 var cartItems=[];
-var cart_n = document.getElementById('cart_n');
 var table= document.getElementById('table');
 var totalOrder= document.getElementById('totalOrder');
 var shopping= document.getElementById('products');
@@ -32,7 +31,6 @@ function clean() {
             <th></th>
         </tr>
     `;
-    cart_n.innerHTML='';
     document.getElementById("btnClean").style.display="none";
 } 
 
@@ -76,7 +74,6 @@ function clean() {
             </form>
     `;
     products=JSON.parse(localStorage.getItem('cart'));
-    cart_n.innerHTML=`${products.length}`;
 })();
 var form= document.getElementById('form1');
 document.getElementById('submitbtn').addEventListener('click',()=>{

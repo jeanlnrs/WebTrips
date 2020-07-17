@@ -1,4 +1,5 @@
 <br><br><br>
+<script>localStorage.clear();</script>
 <div class="container marketing">
     <br>
     <h2>Panama</h2>
@@ -23,21 +24,64 @@
                     <!-- Text -->
                     <p class="card-text">{{this.description}}</p>
                     <div class="d-flex justify-content-between align-items-center">
-
+                        <a href="#0" class="cd-add-to-cart js-cd-add-to-cart" data-name="{{this.name}}"
+                            data-description="{{this.description}}" data-price="{{this.price}}"
+                            data-path="{{this.path}}">{{this.price}}</a>
                         <!-- Link -->
-                        <button type="button"
+                        {{!-- <button type="button"
                             onclick="cart2('{{this.name}}','{{this.description}}','{{this.price}}','{{this.path}}')"
                             class="btn btn-flat btn-lg"><a class="black-text d-flex justify-content-end"
                                 href="/cart"><b>${{this.price}}</b></a></button>
                         <button id="{{this.name}}" type="button"
                             onclick="cart('{{this.name}}','{{this.description}}','{{this.price}}','{{this.path}}')"
                             class="btn btn-flat btn-lg justify-content-end"><i
-                                class="fas fa-shopping-cart pl-1"></i></button>
+                                class="fas fa-shopping-cart pl-1"></i></button> --}}
                     </div>
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
+    <div class="cd-cart cd-cart--empty js-cd-cart">
+        <a href="#0" class="cd-cart__trigger text-replace">
+            <ul class="cd-cart__count">
+                <!-- cart items count -->
+                <li>0</li>
+                <li>0</li>
+            </ul> <!-- .cd-cart__count -->
+        </a>
+
+        <div class="cd-cart__content">
+            <div class="cd-cart__layout">
+                <header class="cd-cart__header">
+                    <h2>Cart</h2>
+                    <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
+                </header>
+
+                <div class="cd-cart__body">
+                    <ul>
+                        <!-- products added to the cart will be inserted here using JavaScript -->
+                    </ul>
+                </div>
+
+                <footer class="cd-cart__footer">
+                    <a href="/cart" class="cd-cart__checkout">
+                        <em>Checkout - $<span>0</span>
+                            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor">
+                                    <line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3" y1="12"
+                                        x2="21" y2="12" />
+                                    <polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        points="15,6 21,12 15,18 " />
+                                </g>
+                            </svg>
+                        </em>
+                    </a>
+                </footer>
+            </div>
+        </div> <!-- .cd-cart__content -->
+    </div>
 </div>
+<script src="/js/util.js"></script>
 <script src="/js/main.js"></script>
+{{!-- <script src="/js/main2.js"></script> --}}

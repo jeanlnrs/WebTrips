@@ -23,10 +23,17 @@ router.post('/adm/add', async (req,res)=>{
     data.price = req.body.price;
     data.description = req.body.description;
     data.path = '/img/uploads/' + req.file.filename;
-    await data.save();
-    req.flash("success_msg", "Destino agregado satisfactoriamente");
-    res.redirect('/adm');
-    console.log('data: '+ data);
+    await data.save((err,doc)=>{
+        if(!err){
+            req.flash("success_msg", "Destino agregado satisfactoriamente");
+            console.log('data: '+ data);
+            res.redirect('/adm');
+            
+        } else{
+            console.log('Error : '+err);
+        }
+    });
+    
 });
 /* router.get('/adm/edit/:id',async (req,res)=>{
     Data.findById(req.params.id,(err,doc)=>{

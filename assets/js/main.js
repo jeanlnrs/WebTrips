@@ -1,4 +1,5 @@
 (function(){
+  // Add to Cart Interaction - by CodyHouse.co
   var cart = document.getElementsByClassName('js-cd-cart');
   if(cart.length > 0) {
   	var cartAddBtns = document.getElementsByClassName('js-cd-add-to-cart'),
@@ -9,11 +10,11 @@
   		cartCount = cart[0].getElementsByClassName('cd-cart__count')[0],
   		cartCountItems = cartCount.getElementsByTagName('li'),
   		cartUndo = cart[0].getElementsByClassName('cd-cart__undo')[0],
-  		productId = 0, //este es un marcador de posición -> use sus identificadores de producto reales
+  		productId = 0, //this is a placeholder -> use your real product ids instead
   		cartTimeoutId = false,
   		animatingQuantity = false;
 		initCartEvents();
-		let products = [];
+
 
 		function initCartEvents() {
 			// add products to cart
@@ -64,16 +65,12 @@
 			event.preventDefault();
 			if(animatingQuantity) return;
 			var cartIsEmpty = Util.hasClass(cart[0], 'cd-cart--empty');
-			var name = this.getAttribute('data-name');
-			var description = this.getAttribute('data-description'); 
-			var price = this.getAttribute('data-price');
-			var path = this.getAttribute('data-path');
 			//update cart product list
-			addProduct(name, description, price, path);
+			addProduct(this);
 			//update number of items 
 			updateCartCount(cartIsEmpty);
 			//update total price
-			updateCartTotal(price, true);
+			updateCartTotal(this.getAttribute('data-price'), true);
 			//show cart
 			Util.removeClass(cart[0], 'cd-cart--empty');
 		};
@@ -98,63 +95,22 @@
 			}
 		};
 
-		function addProduct(name, description, price, path) {
+		function addProduct(target) {
 			// this is just a product placeholder
 			// you should insert an item with the selected product info
 			// replace productId, productName, price and url with your real product info
 			// you should also check if the product was already in the cart -> if it is, just update the quantity
-			var item = {
-				name: name,
-				description : description,
-				price: price,
-				path: path
-			}
-			
-			arrayCart(item);
 			productId = productId + 1;
-			var productAdded = `
-			<li class="cd-cart__product">
- 			   	<div class="cd-cart__image"><a href="#0"><img src="${path}" alt="placeholder"></a></div>
-    			<div class="cd-cart__details">
-        			<h3 class="truncate"><a href="#0">${name}</a></h3><span class="cd-cart__price">$${price}</span>
-        			<div class="cd-cart__actions"><a href="#0" class="cd-cart__delete-item">Delete</a>
-        			</div>
-    			</div>
-			</li>
-			`;
+			var productAdded = '<li class="cd-cart__product"><div class="cd-cart__image"><a href="#0"><img src="assets/img/product-preview.png" alt="placeholder"></a></div><div class="cd-cart__details"><h3 class="truncate"><a href="#0">Product Name</a></h3><span class="cd-cart__price">$25.99</span><div class="cd-cart__actions"><a href="#0" class="cd-cart__delete-item">Delete</a><div class="cd-cart__quantity"><label for="cd-product-'+ productId +'">Qty</label><span class="cd-cart__select"><select class="reset" id="cd-product-'+ productId +'" name="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select><svg class="icon" viewBox="0 0 12 12"><polyline fill="none" stroke="currentColor" points="2,4 6,8 10,4 "/></svg></span></div></div></div></li>';
 			cartList.insertAdjacentHTML('beforeend', productAdded);
 		};
-
-		function arrayCart(item) {
-			//Agrega el producto de Array products y del LocalStorage
-			let storage = JSON.parse(localStorage.getItem("cart"));
-			if (storage == null) {
-				products.push(item);
-				localStorage.setItem("cart", JSON.stringify(products));
-				
-			} else {
-				products = JSON.parse(localStorage.getItem("cart"));
-				products.push(item);
-				localStorage.setItem("cart", JSON.stringify(products));
-			}
-			products = JSON.parse(localStorage.getItem("cart"));
-		}
 
 		function removeProduct(product) {
 			if(cartTimeoutId) clearInterval(cartTimeoutId);
 			removePreviousProduct(); // prduct previously deleted -> definitively remove it from the cart
 			
-			//Elimina el producto de Array products y del LocalStorage
-			var searchNameObject = product.getElementsByClassName('truncate')[0].innerText;
-			for (var i =0; i < products.length; i++)
-			if (products[i].name === searchNameObject ) {
-				products.splice(i,1);
-				break;
-			}
-			localStorage.setItem("cart", JSON.stringify(products));
-
 			var topPosition = product.offsetTop,
-				productQuantity = 1,
+				productQuantity = Number(product.getElementsByTagName('select')[0].value),
 				productTotPrice = Number((product.getElementsByClassName('cd-cart__price')[0].innerText).replace('$', '')) * productQuantity;
 
 			product.style.top = topPosition+'px';
@@ -172,7 +128,7 @@
 			}, 8000);
 		};
 
-		function removePreviousProduct() { // eliminó definitivamente un producto del carrito (deshacer ya no es posible)
+		function removePreviousProduct() { // definitively removed a product from the cart (undo not possible anymore)
 			var deletedProduct = cartList.getElementsByClassName('cd-cart__product--deleted');
 			if(deletedProduct.length > 0 ) deletedProduct[0].remove();
 		};
@@ -224,7 +180,7 @@
 				if( !Util.hasClass(cartListItems[i], 'cd-cart__product--deleted') ) {
 					var singleQuantity = Number(cartListItems[i].getElementsByTagName('select')[0].value);
 					quantity = quantity + singleQuantity;
-					price = price + singleQuantity*1;
+					price = price + singleQuantity*Number((cartListItems[i].getElementsByClassName('cd-cart__price')[0].innerText).replace('$', ''));
 				}
 			}
 

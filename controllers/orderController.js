@@ -4,6 +4,7 @@ const mongoose= require('mongoose');
 const Order= mongoose.model('Order');
 const Data = require('../models/data.model');
 const paypal = require('paypal-rest-sdk');
+var Promise = require('bluebird');
 
 //Config
 paypal.configure({
@@ -22,6 +23,7 @@ paypal.configure({
 
 var router= express.Router();
 var globalAmount
+var arraySuccess = [];
 mongoose.set('useFindAndModify',false);
 
 
@@ -82,28 +84,29 @@ router.get('/success', isAuthenticated, (req, res) => {
 
 // POST
 router.post('/addToCart', isAuthenticated, (req,res)=>{
-  insertToCart(req,res);
+  arraySuccess.push(req.body);
 });
 
 router.post('/cart', isAuthenticated, (req,res)=>{
-  insertPayment(req,res);
+  //insertPayment(req,res);
+  insertToCart(req,res);
 });
 
 // Functions
-function insertToCart(req,res) {
-  var order=new Order();
-  order.name = req.body.name;
-  order.description = req.body.description;
-  order.price = req.body.price;
-  order.path = req.body.path;
-  order.user = req.user.id; //id
-  order.save((err,doc)=>{
-    if (!err) {
-            console.log('order: '+order);
-    } else {
-        console.log('Error insertOrder: '+err);
-    }
-});
+async function insertToCart(req,res) {
+    for (var i=0; i < arraySuccess.length; i++){
+    var order = new Order();
+    order.name = await arraySuccess[i].name;
+    order.description = await arraySuccess[i].description;
+    order.price = await arraySuccess[i].price;
+    order.path = await arraySuccess[i].path;
+    order.user = req.user.id; //id
+    await order.save();
+  }
+  res.redirect("/success");
+  console.log('Arreglo antes de ' + arraySuccess);
+  arraySuccess=[];
+  console.log('Arreglo despues de ' + arraySuccess);
 }
 
 function insertPayment(req,res) {
