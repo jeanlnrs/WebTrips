@@ -2,8 +2,6 @@
 <script>localStorage.clear();</script>
 <div class="container marketing">
     <br>
-    <h2>Panama</h2>
-    <hr>
     <div class="row">
         {{#each data}}
         <div class="col-md-4">
@@ -22,20 +20,110 @@
                     <hr>
 
                     <!-- Text -->
-                    <p class="card-text">{{this.description}}</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <a href="#0" class="cd-add-to-cart js-cd-add-to-cart" data-name="{{this.name}}"
-                            data-description="{{this.description}}" data-price="{{this.price}}"
-                            data-path="{{this.path}}">{{this.price}}</a>
-                        <!-- Link -->
-                        {{!-- <button type="button"
-                            onclick="cart2('{{this.name}}','{{this.description}}','{{this.price}}','{{this.path}}')"
-                            class="btn btn-flat btn-lg"><a class="black-text d-flex justify-content-end"
-                                href="/cart"><b>${{this.price}}</b></a></button>
-                        <button id="{{this.name}}" type="button"
-                            onclick="cart('{{this.name}}','{{this.description}}','{{this.price}}','{{this.path}}')"
-                            class="btn btn-flat btn-lg justify-content-end"><i
-                                class="fas fa-shopping-cart pl-1"></i></button> --}}
+                        <a href="#0" class="cd-add-to-cart js-cd-add-to-cart justify-content-end"
+                            data-name="{{this.name}}" data-description="{{this.description}}"
+                            data-price="{{this.price}}" data-path="{{this.path}}">${{this.price}}
+                        </a>
+                        <a class="cd-add-to-cart justify-content-end" data-toggle="modal"
+                            data-target="#modal{{this.id}}">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade right" id="modal{{this.id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="{{this.url}}ModalPreviewLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-fluid" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="{{this.url}}ModalPreviewLabel">DETALLE</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fliud">
+                                        <div class="wrapper row">
+                                            <div class="preview col-md-6">
+                                                <div class="preview-pic tab-content">
+                                                    <div class="tab-pane active" id="pic-1{{this.id}}">
+                                                        <img class="card-img-top" src="{{this.path}}"
+                                                            alt="Card image cap">
+                                                    </div>
+                                                    <div class="tab-pane" id="pic-2{{this.id}}">
+                                                        <img class="card-img-top" src="{{this.path}}"
+                                                            alt="Card image cap">
+                                                    </div>
+                                                    <div class="tab-pane" id="pic-3{{this.id}}">
+                                                        <img class="card-img-top" src="{{this.path}}"
+                                                            alt="Card image cap">
+                                                    </div>
+                                                    <div class="tab-pane" id="pic-4{{this.id}}">
+                                                        <img class="card-img-top" src="{{this.path}}"
+                                                            alt="Card image cap">
+                                                    </div>
+                                                    <div class="tab-pane" id="pic-5{{this.id}}">
+                                                        <img class="card-img-top" src="{{this.path}}"
+                                                            alt="Card image cap"></a>
+                                                    </div>
+                                                </div>
+                                                <ul class="preview-thumbnail nav nav-tabs">
+                                                    <li class="active">
+                                                        <a data-target="#pic-1{{this.id}}" data-toggle="tab">
+                                                            <img class="card-img-top" src="{{this.path}}"
+                                                                alt="Card image cap"></a></li>
+                                                    <li>
+                                                        <a data-target="#pic-2{{this.id}}" data-toggle="tab">
+                                                            <img class="card-img-top" src="{{this.path}}"
+                                                                alt="Card image cap"></a></li>
+                                                    <li>
+                                                        <a data-target="#pic-3{{this.id}}" data-toggle="tab">
+                                                            <img class="card-img-top" src="{{this.path}}"
+                                                                alt="Card image cap"></a></li>
+                                                    <li>
+                                                        <a data-target="#pic-4{{this.id}}" data-toggle="tab">
+                                                            <img class="card-img-top" src="{{this.path}}"
+                                                                alt="Card image cap"></a></li>
+                                                    <li>
+                                                        <a data-target="#pic-5{{this.id}}" data-toggle="tab">
+                                                            <img class="card-img-top" src="{{this.path}}"
+                                                                alt="Card image cap"></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="details col-md-4">
+                                                <br><br><br>
+                                                <h3 class="product-title">{{this.name}}</h3>
+                                                <p class="product-description">{{this.description}}</p>
+                                            </div>
+                                            <div class="details col-md-2">
+                                                <br><br><br>
+                                                <h3 class="price">${{this.price}}</h3>
+                                                <p>1 <i class="fas fa-user-friends"></i>                                                
+                                                <i class="fas fa-hotel"></i>                                                                
+                                                <i class="fas fa-bus"></i></p> 
+                                                <div class="rating">
+                                                    <div class="stars">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </div>
+                                                    <span class="review-no">Calificaciones</span>
+                                                </div>
+                                                <button type="button" class="btn btn-success js-cd-add-to-cart" data-name="{{this.name}}" 
+                                                data-description="{{this.description}}" data-price="{{this.price}}" data-path="{{this.path}}">
+                                                Agregar al carrito</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,4 +172,3 @@
 </div>
 <script src="/js/util.js"></script>
 <script src="/js/main.js"></script>
-{{!-- <script src="/js/main2.js"></script> --}}
