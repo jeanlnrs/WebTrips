@@ -5,7 +5,7 @@ const path = require('path');
 const Data = require('../models/data.model');
 var router= express.Router();
 
-router.get('/adm',(req,res)=>{
+router.get('/product',(req,res)=>{
     Data.find((err,docs)=>{
         if (!err) {
             res.render("adm",{
@@ -17,7 +17,7 @@ router.get('/adm',(req,res)=>{
     });
 });
 
-router.post('/adm/add', async (req,res)=>{
+router.post('/product/add', async (req,res)=>{
     var arrayImage=req.files;
     var imag1 = arrayImage[0]["filename"];
     var imag2 = arrayImage[1]["filename"];
@@ -39,7 +39,7 @@ router.post('/adm/add', async (req,res)=>{
         if(!err){
             req.flash("success_msg", "Destino agregado satisfactoriamente");
             console.log('data: '+ data);
-            res.redirect('/adm');
+            res.redirect('/product');
             
         } else{
             console.log('Error : '+err);
@@ -48,7 +48,7 @@ router.post('/adm/add', async (req,res)=>{
 
 });
 
-/* router.get('/adm/edit/:id',async (req,res)=>{
+/* router.get('/product/edit/:id',async (req,res)=>{
     Data.findById(req.params.id,(err,doc)=>{
         if (!err) {
                 res.render("edit",{
@@ -59,12 +59,12 @@ router.post('/adm/add', async (req,res)=>{
         }
     });
 });
-router.put('/adm/data-edit/:id',async (req,res)=>{
+router.put('/product/data-edit/:id',async (req,res)=>{
     const {name, description, price, path} = req.body;
     await Data.findByIdAndUpdate(req.params.id, {name, description, price, path});
-    res.redirect('/adm');
+    res.redirect('/product');
 }); */
-router.get('/adm/delete/:id',async (req,res)=>{
+router.get('/product/delete/:id',async (req,res)=>{
     const { id } = req.params;
     const imageDeleted = await Data.findByIdAndDelete(id);
     await unlink(path.resolve('./public' + imageDeleted.path));
@@ -72,6 +72,6 @@ router.get('/adm/delete/:id',async (req,res)=>{
     await unlink(path.resolve('./public' + imageDeleted.path2));
     await unlink(path.resolve('./public' + imageDeleted.path3));
     await unlink(path.resolve('./public' + imageDeleted.path4));
-    res.redirect('/adm');
+    res.redirect('/product');
 });
 module.exports=router;

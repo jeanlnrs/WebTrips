@@ -4,7 +4,7 @@
         <div class="container-fluid" style="width: 90%;">
             <div class="row">
                 <div class="col-3 p-1 bg-white rounded shadow-sm mb-1">
-                    <form action="/adm/add" method="post" enctype="multipart/form-data">
+                    <form action="/product/add" method="post" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <label>Nombre</label>
@@ -69,8 +69,8 @@
                                 <td>{{this.description}}</td>
                                 <td class="text-center">{{this.price}}.00</td>
                                 <td class="text-center">
-                                    {{!-- <a class="btn btn-primary" href="/adm/edit/{{this._id}}">Actualizar</a> --}}
-                                    <a href="/adm/delete/{{this._id}}"><i class="fas fa-trash fa-lg"
+                                    {{!-- <a class="btn btn-primary" href="/product/edit/{{this._id}}">Actualizar</a> --}}
+                                    <a href="/product/delete/{{this._id}}"><i class="fas fa-trash fa-lg"
                                             style="color:crimson"></i></a>
                                 </td>
                             </tr>
