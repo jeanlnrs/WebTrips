@@ -5,21 +5,45 @@
             <div class="row">
                 <div class="col-3 p-1 bg-white rounded shadow-sm mb-1">
                     <form action="/adm/add" method="post" enctype="multipart/form-data">
+
                         <div class="form-group">
                             <label>Nombre</label>
                             <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
                         </div>
+
                         <div class="form-group">
                             <label>Descripcion</label>
                             <textarea name="description" class="form-control" rows="3"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label>Precio</label>
-                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio">
+
+                        <div class="input-group mb-3">
+                            <select class="custom-select" id="inputGroupSelect02" name="category">
+                                <option selected>Elegir categoria...</option>
+                                <option value="Panamá">Panamá</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Venezuela">Venezuela</option>
+                                <option value="Perú">Perú</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Argentina">Argentina</option>
+                            </select>
                         </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio">
+                            <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                            </div>
+                        </div>
+
                         <div class="form-group input-group mb-3">
-                            <input type="file" name="path" class="custom-file-input">
-                            <label class="custom-file-label">Subir imagen</label>
+                            <input type="file" name="path" multiple class="custom-file-input">
+                            <label class="custom-file-label">Subir imagen 5 imagenes</label>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Agregar</button>
                     </form>
@@ -39,13 +63,15 @@
                         <tbody>
                             {{#each data}}
                             <tr>
-                                <td><img class="img-thumbnail" src="{{this.path}}" alt="Sheep" width="200" height="200"></td>
+                                <td><img class="img-thumbnail" src="{{this.path}}" alt="Sheep" width="200" height="200">
+                                </td>
                                 <td>{{this.name}}</td>
                                 <td>{{this.description}}</td>
                                 <td class="text-center">{{this.price}}.00</td>
                                 <td class="text-center">
                                     {{!-- <a class="btn btn-primary" href="/adm/edit/{{this._id}}">Actualizar</a> --}}
-                                    <a href="/adm/delete/{{this._id}}"><i class="fas fa-trash fa-lg" style="color:crimson"></i></a>
+                                    <a href="/adm/delete/{{this._id}}"><i class="fas fa-trash fa-lg"
+                                            style="color:crimson"></i></a>
                                 </td>
                             </tr>
                             {{else}}

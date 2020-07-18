@@ -169,7 +169,7 @@
 			cartTimeoutId = setTimeout(function(){
 				Util.removeClass(cartUndo, 'cd-cart__undo--visible');
 				removePreviousProduct();
-			}, 8000);
+			}, 0);
 		};
 
 		function removePreviousProduct() { // eliminó definitivamente un producto del carrito (deshacer ya no es posible)

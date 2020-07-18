@@ -18,11 +18,23 @@ router.get('/adm',(req,res)=>{
 });
 
 router.post('/adm/add', async (req,res)=>{
+    var arrayImage=req.files;
+    var imag1 = arrayImage[0]["filename"];
+    var imag2 = arrayImage[1]["filename"];
+    var imag3 = arrayImage[2]["filename"];
+    var imag4 = arrayImage[3]["filename"];
+    var imag5 = arrayImage[4]["filename"];
+   
     const data = new Data();
     data.name = req.body.name;
     data.price = req.body.price;
     data.description = req.body.description;
-    data.path = '/img/uploads/' + req.file.filename;
+    data.category = req.body.category;
+    data.path = '/img/uploads/' + imag1;
+    data.path1 = '/img/uploads/' + imag2;
+    data.path2 = '/img/uploads/' + imag3;
+    data.path3 = '/img/uploads/' + imag4;
+    data.path4 = '/img/uploads/' + imag5;
     await data.save((err,doc)=>{
         if(!err){
             req.flash("success_msg", "Destino agregado satisfactoriamente");
@@ -33,8 +45,9 @@ router.post('/adm/add', async (req,res)=>{
             console.log('Error : '+err);
         }
     });
-    
+
 });
+
 /* router.get('/adm/edit/:id',async (req,res)=>{
     Data.findById(req.params.id,(err,doc)=>{
         if (!err) {
@@ -55,6 +68,10 @@ router.get('/adm/delete/:id',async (req,res)=>{
     const { id } = req.params;
     const imageDeleted = await Data.findByIdAndDelete(id);
     await unlink(path.resolve('./public' + imageDeleted.path));
+    await unlink(path.resolve('./public' + imageDeleted.path1));
+    await unlink(path.resolve('./public' + imageDeleted.path2));
+    await unlink(path.resolve('./public' + imageDeleted.path3));
+    await unlink(path.resolve('./public' + imageDeleted.path4));
     res.redirect('/adm');
 });
 module.exports=router;

@@ -43,7 +43,7 @@ const storage = multer.diskStorage({
         cb(null, uuidv4() + path.extname(file.originalname));
     }
 }) 
-app.use(multer({storage}).single('path'));
+app.use(multer({storage}).array('path',5));
 const MongoStore = connectMongo(session);
 app.use(session({
   secret: 'secret',

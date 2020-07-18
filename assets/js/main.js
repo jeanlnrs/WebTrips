@@ -125,7 +125,7 @@
 			cartTimeoutId = setTimeout(function(){
 				Util.removeClass(cartUndo, 'cd-cart__undo--visible');
 				removePreviousProduct();
-			}, 8000);
+			}, 0);
 		};
 
 		function removePreviousProduct() { // definitively removed a product from the cart (undo not possible anymore)
