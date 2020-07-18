@@ -1,0 +1,159 @@
+<br><br><br>
+<!-- Page Content -->
+<div class="container-fluid" style="width: 85%;">
+
+    <!-- Buscador row -->
+    <div class="row">
+
+        <!-- Buscador -->
+        <div class="col-12">
+            <div id="custom-search-input">
+                <div class="input-group">
+                    <input type="text" class="search-query form-control" placeholder="Search" />
+                    <span class="input-group-btn">
+                        <button type="button" disabled>
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <!-- Body de la pagina -->
+    <div class="row">
+
+        <!-- Division del filtro -->
+        <div class="col-3 rounded shadow-sm" style="background-color: #f0f0f5; height: 0%;">
+            <h5 style="margin-top: 20px;">
+                <i class="fas fa-cogs"></i> Filtros</h5>
+            <hr>
+            <div>
+                <h5 style="margin-top: 10px;">Categorias</h5>
+
+                <!-- Checkbox de categorias -->
+                <div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="Panamá" id="cat_Pan">
+                        <label for="cat_Pan">Panamá</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="CR" id="cat_cr">
+                        <label for="cat_cr">Costa Rica</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="Colombia" id="cat_col">
+                        <label for="cat_col">Colombia</label>
+                    </div>
+                </div>
+                    
+                    {{!-- <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Colombia
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Venezuela
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Perú
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Chile
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Uruguay
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Argentina
+                    </label>
+                </div> --}}
+
+                <hr>
+            </div>
+            <div>
+                <h5>Rango de precio</h5>
+                <form>
+                    <div class="form-group">
+                        0$
+                        <input type="range" class="form-control-range" id="formControlRange">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Resultado de las busquedas -->
+        <div class="col-lg">
+            {{#each data}}
+
+            <!-- Card -->
+            <div class="ctgr {{this.category}}">
+                <div class="row">
+                    <div class="col-5">
+                        <a href="#">
+                            <img class="img-fluid-search rounded mb-3 mb-md-0" src="{{this.path}}" alt="">
+                        </a>
+                    </div>
+                    <div class="col-7">
+                        <h3>{{this.name}}</h3>
+                        <p>{{this.description}}</p>
+                        <a class="btn btn-primary" href="#">View Project</a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            
+            {{/each}}
+            <!-- /.card -->
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.paginacion -->
+
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/main.js"></script>

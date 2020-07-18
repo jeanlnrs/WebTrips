@@ -40,6 +40,18 @@ router.get('/',(req,res)=>{
   });
 });
 
+router.get('/search',(req,res)=>{
+  Data.find((err,docs)=>{
+      if (!err) {
+          res.render("search",{
+              data:docs
+          });
+      } else {
+           console.log('Error in Data: '+ err);    
+      }
+  });
+});
+
 router.get('/cart', isAuthenticated, (req,res)=>{
     res.render('cart');
 });
