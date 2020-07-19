@@ -1,7 +1,6 @@
-<br><br><br>
-<!-- Page Content -->
+<br><br><br><br>
+<script>localStorage.clear();</script>
 <div class="container-fluid" style="width: 85%;">
-
     <!-- Buscador row -->
     <div class="row">
 
@@ -46,45 +45,27 @@
                         <input type="checkbox" name="category" value="Colombia" id="cat_col">
                         <label for="cat_col">Colombia</label>
                     </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="Venezuela" id="cat_vnz">
+                        <label for="cat_vnz">Venezuela</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="Perú" id="cat_per">
+                        <label for="cat_per">Perú</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="Brasil" id="cat_br">
+                        <label for="cat_br">Brasil</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="Chile" id="cat_ch">
+                        <label for="cat_ch">Chile</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="category" value="Argentina" id="cat_ar">
+                        <label for="cat_ar">Argentina</label>
+                    </div>
                 </div>
-                    
-                    {{!-- <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Colombia
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Venezuela
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Perú
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Chile
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Uruguay
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Argentina
-                    </label>
-                </div> --}}
-
                 <hr>
             </div>
             <div>
@@ -106,54 +87,170 @@
             <div class="ctgr {{this.category}}">
                 <div class="row">
                     <div class="col-5">
-                        <a href="#">
-                            <img class="img-fluid-search rounded mb-3 mb-md-0" src="{{this.path}}" alt="">
+                        <a data-toggle="modal" data-target="#modal{{this.id}}">
+                            <img class="img-fluid-search rounded mb-3 mb-md-0" src="{{this.path}}">
                         </a>
                     </div>
                     <div class="col-7">
-                        <h3>{{this.name}}</h3>
+                        <h3 data-toggle="modal" data-target="#modal{{this.id}}">{{this.name}}</h3>
                         <p>{{this.description}}</p>
-                        <a class="btn btn-primary" href="#">View Project</a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="cd-add-to-cart js-cd-add-to-cart justify-content-end" data-name="{{this.name}}"
+                                data-description="{{this.description}}" data-price="{{this.price}}"
+                                data-path="{{this.path}}">${{this.price}}
+                            </a>
+                            <a class="cd-add-to-cart justify-content-end" data-toggle="modal"
+                                data-target="#modal{{this.id}}">
+                                Ver más <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <hr>
             </div>
 
-            
+            <!-- Modal -->
+            <div class="modal fade right" id="modal{{this.id}}" tabindex="-1" role="dialog"
+                aria-labelledby="{{this.url}}ModalPreviewLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fluid" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="{{this.url}}ModalPreviewLabel">{{this.category}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fliud">
+                                <div class="wrapper row">
+                                    <div class="col-auto"></div>
+                                    <div class="preview col-md-6">
+                                        <div class="preview-pic tab-content">
+                                            <div class="tab-pane active" id="pic-1{{this.id}}">
+                                                <img class="card-img-top" src="{{this.path}}" alt="Card image cap">
+                                            </div>
+                                            <div class="tab-pane" id="pic-2{{this.id}}">
+                                                <img class="card-img-top" src="{{this.path1}}" alt="Card image cap">
+                                            </div>
+                                            <div class="tab-pane" id="pic-3{{this.id}}">
+                                                <img class="card-img-top" src="{{this.path2}}" alt="Card image cap">
+                                            </div>
+                                            <div class="tab-pane" id="pic-4{{this.id}}">
+                                                <img class="card-img-top" src="{{this.path3}}" alt="Card image cap">
+                                            </div>
+                                            <div class="tab-pane" id="pic-5{{this.id}}">
+                                                <img class="card-img-top" src="{{this.path4}}" alt="Card image cap">
+                                            </div>
+                                        </div>
+                                        <ul class="preview-thumbnail nav nav-tabs">
+                                            <li class="active">
+                                                <a data-target="#pic-1{{this.id}}" data-toggle="tab">
+                                                    <img class="card-img-top" src="{{this.path}}"
+                                                        alt="Card image cap"></a>
+                                            </li>
+                                            <li>
+                                                <a data-target="#pic-2{{this.id}}" data-toggle="tab">
+                                                    <img class="card-img-top" src="{{this.path1}}"
+                                                        alt="Card image cap"></a>
+                                            </li>
+                                            <li>
+                                                <a data-target="#pic-3{{this.id}}" data-toggle="tab">
+                                                    <img class="card-img-top" src="{{this.path2}}"
+                                                        alt="Card image cap"></a>
+                                            </li>
+                                            <li>
+                                                <a data-target="#pic-4{{this.id}}" data-toggle="tab">
+                                                    <img class="card-img-top" src="{{this.path3}}"
+                                                        alt="Card image cap"></a>
+                                            </li>
+                                            <li>
+                                                <a data-target="#pic-5{{this.id}}" data-toggle="tab">
+                                                    <img class="card-img-top" src="{{this.path4}}"
+                                                        alt="Card image cap"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-auto"></div>
+                                    <div class="details col-md-4">
+                                        <br><br><br>
+                                        <h2 class="product-title"><b>{{this.name}}</b></h2>
+                                        <p>1 <i class="fas fa-user-friends"></i>
+                                            <i class="fas fa-hotel"></i>
+                                            <i class="fas fa-bus"></i></p>
+                                        <h2 class="price"><span>${{this.price}}</span></h2>
+                                        <div class="rating">
+                                            <div class="stars">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                            <span class="review-no">Calificaciones</span>
+                                        </div>
+                                        <hr>
+
+                                        <p class="product-description">{{this.description}}</p>
+                                        <hr>
+                                        <button type="button"
+                                            class="btn btn-success js-cd-add-to-cart justify-content-end"
+                                            data-name="{{this.name}}" data-description="{{this.description}}"
+                                            data-price="{{this.price}}" data-path="{{this.path}}">
+                                            Agregar al carrito <i class="fas fa-shopping-cart"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Modal -->
             {{/each}}
-            <!-- /.card -->
 
-            <!-- Pagination -->
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-            <!-- /.paginacion -->
+            <div class="cd-cart cd-cart--empty js-cd-cart">
+                <a class="cd-cart__trigger text-replace">
+                    <ul class="cd-cart__count">
+                        <!-- cart items count -->
+                        <li>0</li>
+                        <li>0</li>
+                    </ul> <!-- .cd-cart__count -->
+                </a>
 
+                <div class="cd-cart__content">
+                    <div class="cd-cart__layout">
+                        <header class="cd-cart__header">
+                            <h2>Cart</h2>
+                            <span class="cd-cart__undo">Item removed. <a>Undo</a></span>
+                        </header>
+
+                        <div class="cd-cart__body">
+                            <ul>
+                                <!-- products added to the cart will be inserted here using JavaScript -->
+                            </ul>
+                        </div>
+
+                        <footer class="cd-cart__footer">
+                            <a href="/cart" class="cd-cart__checkout">
+                                <em>Checkout - $<span>0</span>
+                                    <svg class="icon icon--sm" viewBox="0 0 24 24">
+                                        <g fill="none" stroke="currentColor">
+                                            <line stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x1="3"
+                                                y1="12" x2="21" y2="12" />
+                                            <polyline stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                points="15,6 21,12 15,18 " />
+                                        </g>
+                                    </svg>
+                                </em>
+                            </a>
+                        </footer>
+                    </div>
+                </div> <!-- .cd-cart__content -->
+            </div>
         </div>
     </div>
-    <!-- /.container -->
+
 </div>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
-<script src="/js/search.js"></script>
 <script src="/js/util.js"></script>
 <script src="/js/main.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+<script src="/js/search.js"></script>

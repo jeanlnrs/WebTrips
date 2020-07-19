@@ -10,18 +10,19 @@
 
                 <!-- Card image -->
                 <div class="view overlay">
-                    <img class="card-img-top" style="height:16rem;" src="{{this.path}}" alt="Card image cap">
+                    <img data-toggle="modal" data-target="#modal{{this.id}}" class="card-img-top" 
+                    style="height:16rem;" src="{{this.path}}" alt="Card image cap">
                 </div>
                 <!-- Card content -->
                 <div class="card-body">
 
                     <!-- Title -->
-                    <h5 class="card-title">{{this.name}}</h5>
+                    <h5 class="card-title" data-toggle="modal" data-target="#modal{{this.id}}">{{this.name}}</h5>
                     <hr>
 
                     <!-- Text -->
                     <div class="d-flex justify-content-between align-items-center">
-                        <a href="#0" class="cd-add-to-cart js-cd-add-to-cart justify-content-end"
+                        <a class="cd-add-to-cart js-cd-add-to-cart justify-content-end"
                             data-name="{{this.name}}" data-description="{{this.description}}"
                             data-price="{{this.price}}" data-path="{{this.path}}">${{this.price}}
                         </a>
@@ -124,13 +125,20 @@
                             </div>
                         </div>
                     </div>
+                    <!-- /Modal -->
+
                 </div>
+                <!-- /Card content -->
+
             </div>
+            <!-- Card Wider -->
+
         </div>
         {{/each}}
     </div>
+    
     <div class="cd-cart cd-cart--empty js-cd-cart">
-        <a href="#0" class="cd-cart__trigger text-replace">
+        <a class="cd-cart__trigger text-replace">
             <ul class="cd-cart__count">
                 <!-- cart items count -->
                 <li>0</li>
@@ -142,7 +150,7 @@
             <div class="cd-cart__layout">
                 <header class="cd-cart__header">
                     <h2>Cart</h2>
-                    <span class="cd-cart__undo">Item removed. <a href="#0">Undo</a></span>
+                    <span class="cd-cart__undo">Item removed. <a>Undo</a></span>
                 </header>
 
                 <div class="cd-cart__body">

@@ -8,7 +8,7 @@ var router= express.Router();
 router.get('/product',(req,res)=>{
     Data.find((err,docs)=>{
         if (!err) {
-            res.render("adm",{
+            res.render("product",{
                 data:docs
             });
         } else {
