@@ -1,29 +1,21 @@
-<br><br><br><br>
-<div class="row">
-  <div class="col-md-4 mx-auto">
-    <div class="card">
-      <div class="card-header">
-        Account Register 
-      </div>
-      <div class="card-body">
-        <form action="/users/signup" method="POST">
-          <div class="form-group">
-            <input type="text" class="form-control" name="name" placeholder="Name" value="{{name}}">
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" value="{{email}}">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" value="{{password}}">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" value="{{confirm_password}}">
-          </div>
-          <button class="btn btn-primary btn-block">
-            Signup 
-          </button>
-        </form>
-      </div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="login-reg-panel">
+  <div class="register-info-box">
+    <h2 style="color: white;">Tienes una cuenta?</h2>
+    <a href="/users/signin" style="color: white;"><label id="label-login" for="log-login-show">Iniciar seción</label></a>
+  </div>
+
+  <div class="white-panel">
+    <div class="login-show">
+      <h2>REGISTRARME</h2>
+      <form action="/users/signup" method="POST" id="someid">
+        <input type="text" name="name" placeholder="Nombre" value="{{name}}">
+        <input type="email" name="email" placeholder="Correo" value="{{email}}">
+        <input type="password" name="password" placeholder="Contraseña" value="{{password}}">
+        <input type="password" name="confirm_password" placeholder="Confirmar Contraseña" value="{{confirm_password}}">
+        <input type="button" value="Registrarme" id="buttonid">
+      </form>
     </div>
   </div>
 </div>
+<script src="/js/login.js"></script>

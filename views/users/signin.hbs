@@ -1,29 +1,19 @@
-<br><br><br><br>
-<div class="row">
-  <div class="col-md-4 mx-auto">
-    <div class="card mt-4 text-center">
-      <div class="card-header">
-        <h1 class="h4">
-          Iniciar session
-        </h1>
-      </div>
-      <div class="card-body">
-        <form action="/users/signin" method="POST">
-          <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" autofocus>
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password">
-          </div>
-          <button class="btn btn-primary btn-block">
-            Ingresar
-          </button>
-        </form>
-      </div>
-    </div>
-    <br>
-    <div class="text-center">
-      <a href="/users/signup" style="color: black;">Puedes registrarte aqui</a>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="login-reg-panel">
+  <div class="register-info-box">
+    <h2 style="color: white;">Aún no tienes cuenta?</h2>
+    <a href="/users/signup" style="color: white;"><label id="label-login" for="log-login-show">Registrate</label></a>
+  </div>
+
+  <div class="white-panel">
+    <div class="login-show">
+      <h2>Iniciar session</h2>
+      <form action="/users/signin" method="POST" id="someid">
+          <input type="text" placeholder="Correo" name="email" autofocus>
+          <input type="password" placeholder="Contraseña" name="password">
+          <input type="button" value="Ingresar" id="buttonid">
+      </form>
     </div>
   </div>
 </div>
+<script src="/js/login.js"></script>

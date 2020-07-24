@@ -65,9 +65,6 @@ function clean() {
                 <h5 class="font-weight-bold">$${total.toFixed(2)}</h5>
               </li>
             </ul>
-            <button id="btnClean" onclick="clean()" class="btn text-white btn-warning">
-                Clean Shopping Cart
-            </button>
             <form id="form1" action="/cart" method="POST" autocomplete="off">
                 <input type="hidden" name="total" value="${total.toFixed(2)}">
                 <button id="submitbtn" class="btn btn-dark rounded-pill py-2 btn-block">Proceder pago</button>
