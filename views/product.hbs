@@ -3,57 +3,77 @@
     <div class="pb-5">
         <div class="container-fluid" style="width: 90%;">
             <div class="row">
-                <div class="col-3 p-1 bg-white rounded shadow-sm mb-1">
-                    <form action="/product/add" method="post" enctype="multipart/form-data">
-
-                        <div class="form-group">
-                            <label>Nombre</label>
-                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Descripcion</label>
-                            <textarea name="description" class="form-control" rows="3"></textarea>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <select class="custom-select" id="inputGroupSelect02" name="category">
-                                <option selected>Elegir categoria...</option>
-                                <option value="Panamá">Panamá</option>
-                                <option value="CR">Costa Rica</option>
-                                <option value="Colombia">Colombia</option>
-                                <option value="Venezuela">Venezuela</option>
-                                <option value="Perú">Perú</option>
-                                <option value="Brasil">Brasil</option>
-                                <option value="Chile">Chile</option>
-                                <option value="Argentina">Argentina</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
-                            </div>
-                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio">
-                            <div class="input-group-append">
-                                <span class="input-group-text">.00</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group input-group mb-3">
-                            <input type="file" name="path" multiple class="custom-file-input">
-                            <label class="custom-file-label">Subir imagen 5 imagenes</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Agregar</button>
-                    </form>
-                </div>
-                <div class="col-sm-auto"></div>
                 <div class="col p-1 bg-white rounded shadow-sm mb-1">
+                    <div>
+                        <a id="modalActivate" class="btn btn-success btn-sm" data-toggle="modal"
+                            data-target="#exampleModalPreview">
+                            Agregar nuevo destino <i class="fas fa-plus-square ml-1"></i>
+                        </a>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade right" id="exampleModalPreview" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalPreviewLabel">Agregar nuevo destino</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/product/add" method="post" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Descripcion</label>
+                                            <textarea name="description" class="form-control" rows="3" style="padding: 115px;"></textarea>
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <select class="custom-select" id="inputGroupSelect02" name="category">
+                                                <option selected>Elegir categoria...</option>
+                                                <option value="Panamá">Panamá</option>
+                                                <option value="CR">Costa Rica</option>
+                                                <option value="Colombia">Colombia</option>
+                                                <option value="Venezuela">Venezuela</option>
+                                                <option value="Perú">Perú</option>
+                                                <option value="Brasil">Brasil</option>
+                                                <option value="Chile">Chile</option>
+                                                <option value="Argentina">Argentina</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">.00</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group input-group mb-3">
+                                            <input type="file" name="path" multiple class="custom-file-input">
+                                            <label class="custom-file-label">Subir 5 imagenes</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block" data-dismiss="modal">Agregar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
                     <table class="table">
-                        <thead>
+                        <thead class="black white-text">
                             <tr>
-                                <th scope="col">Imagen</th>
+                                {{!-- <th scope="col">Imagen</th> --}}
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Categoria</th>
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Opciones</th>
@@ -62,9 +82,9 @@
                         <tbody>
                             {{#each data}}
                             <tr>
-                                <td><img class="img-thumbnail" src="{{this.path}}" alt="Sheep" width="200" height="200">
-                                </td>
-                                <td>{{this.name}}</td>
+                                {{!-- <td><img class="img-thumbnail" src="{{this.path}}" alt="Sheep" width="200" height="200"></td> --}}
+                                <td style="width: 240px;">{{this.name}}</td>
+                                <td>{{this.category}}</td>
                                 <td>{{this.description}}</td>
                                 <td class="text-center">{{this.price}}.00</td>
                                 <td class="text-center">

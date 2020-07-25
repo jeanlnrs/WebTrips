@@ -40,6 +40,10 @@ router.get('/',(req,res)=>{
   });
 });
 
+router.get('/adm', (req,res)=>{
+  res.render('admin');
+});
+
 router.get('/search',(req,res)=>{
   Data.find((err,docs)=>{
       if (!err) {
@@ -100,33 +104,16 @@ router.post('/addToCart', isAuthenticated, (req,res)=>{
 });
 
 router.post('/cart', isAuthenticated, (req,res)=>{
-  //insertPayment(req,res);
-  insertToCart(req,res);
+  insertPayment(req,res);
 });
 
-// Functions
-async function insertToCart(req,res) {
-    for (var i=0; i < arraySuccess.length; i++){
-    var order = new Order();
-    order.name = await arraySuccess[i].name;
-    order.description = await arraySuccess[i].description;
-    order.price = await arraySuccess[i].price;
-    order.path = await arraySuccess[i].path;
-    order.user = req.user.id; //id
-    await order.save();
-  }
-  res.redirect("/success");
-  console.log('Arreglo antes de ' + arraySuccess);
-  arraySuccess=[];
-  console.log('Arreglo despues de ' + arraySuccess);
-}
-
+// Function
 function insertPayment(req,res) {
   var name = "";
   var currency = "USD";
   var description = "";
   var total = req.body.total;
-  var cant = 1;            
+  var cant = 1;     
       const create_payment_json = {
         intent: "sale",
         payer: {
@@ -153,12 +140,22 @@ function insertPayment(req,res) {
         }]
       };
 
-      paypal.payment.create(create_payment_json, function (error, payment) {
+      paypal.payment.create(create_payment_json, async function (error, payment) {
         if (error) {
           throw error;
         } else {
           for (let i = 0; i < payment.links.length; i++) {
             if (payment.links[i].rel === 'approval_url') {
+              for (var index=0; index < arraySuccess.length; index++){
+                var order = new Order();
+                order.name = await arraySuccess[index].name;
+                order.description = await arraySuccess[index].description;
+                order.price = await arraySuccess[index].price;
+                order.path = await arraySuccess[index].path;
+                order.user = req.user.id; //id
+                await order.save();
+              }
+              arraySuccess=[];
               res.redirect(payment.links[i].href);
             }
           }

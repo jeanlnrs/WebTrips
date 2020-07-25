@@ -1,35 +1,28 @@
-<div class="container mt-4">
-    <main role="main">
-        <div class="row">
-            <div class="col">
-                <h1>Orders</h1>
-                <div class="table-responsive-sm">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Order</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each order}}
-                                <tr>
-                                    <td>{{this._id}}</td>
-                                    <td>{{this.order}}</td>
-                                    <td>{{this.total}}</td>
-                                    <td>
-                                  <a class="btn btn-primary" href="/order/{{this._id}}">Update</a>
-                                <a class="btn btn-danger" href="/order/delete/{{this._id}}">Delete</a>
-                                        
-                                    </td>
-                                </tr>
-                            {{/each}}
-                        </tbody>                        
-                    </table>
-                </div>
-            </div>
-        </div>
-    </main>
+<SCRIPT  language=JavaScript> 
+function go(){
+
+if (document.form.password.value=='admin' && document.form.login.value=='admin'){ 
+        document.form.submit(); 
+    } 
+    else{ 
+         alert("Porfavor ingrese, nombre de usuario y contraseña correctos."); 
+    } 
+} 
+</SCRIPT>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="login-reg-panel">
+  <div class="register-info-box">
+  </div>
+
+  <div class="white-panel">
+    <div class="login-show">
+      <h2>Iniciar session</h2>
+      <form action="/product" name=form>
+          <input type="text" placeholder="Correo" name=login>
+          <input type="password" placeholder="Contraseña" name=password>
+          <input type="button" value="Ingresar" onclick=go()>
+      </form>
+    </div>
+  </div>
 </div>
+<script src="/js/login.js"></script>
