@@ -25,17 +25,16 @@
                                     <form action="/product/add" method="post" enctype="multipart/form-data">
 
                                         <div class="form-group">
-                                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
+                                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre del destino">
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Descripcion</label>
-                                            <textarea name="description" class="form-control" rows="3" style="padding: 115px;"></textarea>
+                                            <textarea name="description" placeholder="Descripcion del destino" class="form-control" rows="3" style="height: 300px;"></textarea>
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <select class="custom-select" id="inputGroupSelect02" name="category">
-                                                <option selected>Elegir categoria...</option>
+                                                <option selected>Elegir Pais...</option>
                                                 <option value="Panamá">Panamá</option>
                                                 <option value="CR">Costa Rica</option>
                                                 <option value="Colombia">Colombia</option>
@@ -51,7 +50,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio">
+                                            <input type="text" name="price" class="form-control" placeholder="Ingrese precio del destino">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">.00</span>
                                             </div>
@@ -59,9 +58,9 @@
 
                                         <div class="form-group input-group mb-3">
                                             <input type="file" name="path" multiple class="custom-file-input">
-                                            <label class="custom-file-label">Subir 5 imagenes</label>
+                                            <label class="custom-file-label">Subir 5 imagenes de referencia</label>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-block" data-dismiss="modal">Agregar</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Agregar</button>
                                     </form>
                                 </div>
                             </div>
