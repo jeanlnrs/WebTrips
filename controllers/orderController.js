@@ -61,41 +61,42 @@ router.get('/cart', isAuthenticated, (req,res)=>{
 });
 
  router.get('/orders',(req,res)=>{
-    res.render('orders');
+  const payerId = req.query.PayerID;
+  const paymentId = req.query.paymentId;
+  const execute_payment_json = {
+    "payer_id": payerId,
+    "transactions": [{
+      "amount": {
+        "currency": "USD",
+        "total": globalAmount
+      }
+    }]
+  };
+
+  paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
+    console.log(payment);
+    if (error) {
+      console.log(error.response);
+      throw error;
+    } else {
+      for (var index=0; index < arraySuccess.length; index++){
+        var order = new Order();
+        order.name = await arraySuccess[index].name;
+        order.description = await arraySuccess[index].description;
+        order.price = await arraySuccess[index].price;
+        order.path = await arraySuccess[index].path;
+        order.user = req.user.id; //id
+        await order.save();
+      }
+      arraySuccess=[];
+      console.log(JSON.stringify(payment));
+      findOrders (req,res);
+     }
+  });
 });
-router.get('/success',(req,res)=>{
-    Order.find({user: req.user.id},(err,docs)=>{
-        if (!err) {
-            res.render("success",{
-                order:docs
-            });
-        } else {
-             console.log('Error in order: '+ err);    
-        }
-    });
-});
+
 router.get('/success', isAuthenticated, (req, res) => {
-     const payerId = req.query.PayerID;
-    const paymentId = req.query.paymentId;
-    const execute_payment_json = {
-      "payer_id": payerId,
-      "transactions": [{
-        "amount": {
-          "currency": "USD",
-          "total": globalAmount
-        }
-      }]
-    };
-  
-    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-      if (error) {
-        console.log(error.response);
-        throw error;
-      } else {
-        console.log(JSON.stringify(payment));
-        res.render('orders');
-       }
-    });
+    findOrders (req,res);
   })
 
 // POST
@@ -113,6 +114,7 @@ function insertPayment(req,res) {
   var currency = "USD";
   var description = "";
   var total = req.body.total;
+  globalAmount = req.body.total;
   var cant = 1;     
       const create_payment_json = {
         intent: "sale",
@@ -120,7 +122,7 @@ function insertPayment(req,res) {
           payment_method: "paypal"
         },
         redirect_urls: {
-          return_url: "http://localhost:3000/success",
+          return_url: "http://localhost:3000/orders",
           cancel_url: "http://localhost:3000/"
         },
         transactions: [{
@@ -134,33 +136,36 @@ function insertPayment(req,res) {
           },
           amount: {
             currency: currency,
-            total: total
+            total: globalAmount
           },
           description: description
         }]
       };
+      
+      paypal.payment.create(create_payment_json, function (error, payment) {
 
-      paypal.payment.create(create_payment_json, async function (error, payment) {
         if (error) {
           throw error;
         } else {
           for (let i = 0; i < payment.links.length; i++) {
             if (payment.links[i].rel === 'approval_url') {
-              for (var index=0; index < arraySuccess.length; index++){
-                var order = new Order();
-                order.name = await arraySuccess[index].name;
-                order.description = await arraySuccess[index].description;
-                order.price = await arraySuccess[index].price;
-                order.path = await arraySuccess[index].path;
-                order.user = req.user.id; //id
-                await order.save();
-              }
-              arraySuccess=[];
               res.redirect(payment.links[i].href);
             }
           }
         }
       });
+}
+
+function findOrders (req,res){
+  Order.find({user: req.user.id},(err,docs)=>{
+    if (!err) {
+        res.render("success",{
+            order:docs
+        });
+    } else {
+         console.log('Error in order: '+ err);    
+    }
+});
 }
 
 module.exports=router;
