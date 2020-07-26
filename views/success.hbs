@@ -14,14 +14,14 @@
                     </div>
 
                     <div class="footer btn-center">
-                        <button id="modalActivate" type="button" data-toggle="modal" data-target="#exampleModalPreview"
+                        <button id="modalActivate" type="button" data-toggle="modal" data-target="#modal{{this.id}}"
                             class="btn btn-neutral btn-round btn-modern">Descargar</button>
                     </div>
 
                     <div class="filter filter-blue"></div>
                 </div> <!-- end card -->
                 <!-- Modal -->
-                <div class="modal fade right" id="exampleModalPreview" tabindex="-1" role="dialog"
+                <div class="modal fade right" id="modal{{this.id}}" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -34,6 +34,7 @@
                             <div class="modal-body">
                                 <div class="card text-center">
                                     <img class=" img-fluid" src="/img/qr-imagen.png" alt="card image">
+                                    <p class="text-center"> {{this.id}}</p>
                                 </div>
                             </div>
                         </div>
