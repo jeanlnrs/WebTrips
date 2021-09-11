@@ -20,10 +20,10 @@ const userController= require('./controllers/userController');
 require('./config/passport');
 
 //Settings
-/* app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT);
 app.use(bodyparser.urlencoded({
     extended: true
-})); */
+}));
 app.use(bodyparser.json());
 app.use(express.static(path.join(__dirname,'/public')));
 app.set('views',path.join(__dirname,'views'));
